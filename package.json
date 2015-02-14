@@ -1,0 +1,45 @@
+{
+  "name": "simple=chat-system",
+  "version": "0.0.1",
+  "description": "基于node的简单的webqq",
+  "main": "",
+  "dependencies": {
+    "express": "~3.0",
+    "requirejs": "^2.1.14",
+    "socket.io": "~0.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "devDependencies": {
+    "blueimp-tmpl": "^2.5.4",
+    "debug": "~0.7",
+    "grunt": "~0.4.1",
+    "grunt-bower-requirejs": "^0.11.0",
+    "grunt-bower-task": "^0.3.4",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jade": "~0.12.0",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-less": "^0.11.3",
+    "grunt-contrib-watch": "~0.5.2",
+    "grunt-express": "^1.4.0",
+    "grunt-livescript": "~0.5.0",
+    "grunt-newer": "^0.7.0",
+    "grunt-shell": "^0.7.0",
+    "load-grunt-configs": "^0.4.0",
+    "load-grunt-tasks": "^0.6.0",
+    "sugar": "^1.4.1",
+    "underscore": "^1.6.0"
+  },
+  "scripts": {
+    "test": "mocha ./test-bin"
+  },
+  "author": {
+    "name": "Simin, Fang",
+    "email": "fangsm@mail2.sysu.edu.cn"
+  }
+}
