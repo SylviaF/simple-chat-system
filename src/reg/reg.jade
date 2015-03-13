@@ -1,0 +1,30 @@
+extends ../layout.jade
+
+block title 注册页面
+
+block style
+  link(rel='stylesheet', href='reg.css')
+
+block content
+  div.container
+    div.header
+      a.logo(title="QQ注册")
+      a(title="立即登录" id="linkToLogin") 立即登录
+    div.contentContainer
+      div.left
+      div.right
+        form#regForm
+          +inputLine("昵称", "请输入昵称", "昵称不可以为空")
+
+block script
+  script(src="reg.js")
+
+mixin inputLine(name, tip, error)
+  div.inputLine
+    label.item= name
+    div.inputBox
+      div.inputError
+        input(type="text" autocomplete="off" maxlength="24" tabindex="6")
+    div.tips
+      p= tip
+      div.error= error

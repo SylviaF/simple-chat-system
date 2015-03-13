@@ -2,7 +2,9 @@ module.exports = (grunt)->
   # process.env.DEBUG = 'aw'
   # helper = require 'grunt-configs/helper'
 
+  # 自动读取并加载项目 packge.json 文件中 devDependencies 配置下以 grunt-* 开头的依赖库
   require('load-grunt-tasks')(grunt, {pattern: 'grunt-*', '!grunt-bower-requirejs'})
+
   grunt.renameTask('bower', '__bower__')
   grunt.loadNpmTasks('grunt-bower-requirejs')
   grunt.renameTask('bower', 'bowerRequireJS')
@@ -13,20 +15,20 @@ module.exports = (grunt)->
   grunt.initConfig configs
 
 
-  grunt.registerTask "build", [
-    "clean",
+  grunt.registerTask "dev", [
+    "clean:build",
     "jade",
-    "copy:bin",
-    "copy:testsDriver",
+    "copy:build",
     "coffee",
-    "livescript:src", 
-    "livescript:tests",
-    "less",
-    "bower",
-    "bowerRequireJS",
-    "copy:tests",
-    "express",
-    "watch"
+    "less"
   ]
-  grunt.registerTask "default",
-    ["shell", "build"]
+
+  grunt.registerTask "release", [
+    #"dev",
+    "clean:release"
+    "uglify",
+    "cssmin",
+    "copy:release",
+  ]
+  
+  grunt.registerTask "default", ["dev", "watch"]

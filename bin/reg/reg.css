@@ -1,0 +1,66 @@
+.container .header {
+  height: 94px;
+  background: url(regHeader.png) no-repeat center top;
+}
+.container .header .logo {
+  float: left;
+  height: 94px;
+  width: 289px;
+}
+.container .header #linkToLogin {
+  color: #FFF;
+  cursor: pointer;
+  float: right;
+  margin: 68px 20px 0 0;
+}
+.container .contentContainer .left {
+  background: #f8fdff url(regLeft.png) no-repeat left top;
+  height: 580px;
+  padding-top: 30px;
+  width: 210px;
+}
+.container .contentContainer .right {
+  background: #f8fdff url(regRight.png) no-repeat right top;
+  border-bottom: 1px solid #D6D9DB;
+  border-top: 1px solid #80ADD9;
+  min-height: 530px;
+  padding-bottom: 80px;
+  width: 746px;
+}
+.container .contentContainer #regForm {
+  padding-top: 50px;
+}
+.container .contentContainer #regForm .inputLine .item {
+  float: left;
+  font-size: 14px;
+  height: 44px;
+  line-height: 20px;
+  padding-right: 10px;
+  padding-top: 6px;
+  text-align: right;
+  width: 179px;
+}
+.container .contentContainer #regForm .inputLine .inputBox {
+  float: left;
+  position: relative;
+  height: 60px;
+  width: 306px;
+}
+.container .contentContainer #regForm .inputLine .inputBox .inputError {
+  background: url(inputError.png) no-repeat 0 0;
+  border: none;
+  height: 35px;
+  width: 300px;
+}
+.container .contentContainer #regForm .inputLine .inputBox .inputError:hover {
+  background: url(input.png) no-repeat 0 0;
+}
+.container .contentContainer #regForm .inputLine .inputBox .inputError input {
+  background: none;
+  border: none;
+  font-size: 14px;
+  height: 18px;
+  line-height: 18px;
+  width: 284px;
+  padding: 8px;
+}
