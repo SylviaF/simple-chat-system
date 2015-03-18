@@ -4,9 +4,14 @@ html
     title
       block title
     meta(charset="UTF-8")
+    // build:css css/lib.css
     link(rel='stylesheet', href='../css/common.css')
+    // endbuild
     block style 
   body
     block content
+    // 使用注释和usemin合作生成任务配置，并且修改静态路径
+    // build:js js/lib.js
     script(src="../js/jquery-1.11.2.min.js")
+    // endbuild
     block script

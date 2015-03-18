@@ -3,7 +3,9 @@ extends ../layout.jade
 block title 注册页面
 
 block style
+  // build:css css/reg.css
   link(rel='stylesheet', href='reg.css')
+  // endbuild
 
 block content
   div.container
@@ -17,7 +19,9 @@ block content
           +inputLine("昵称", "请输入昵称", "昵称不可以为空")
 
 block script
+  // build:js js/reg.js
   script(src="reg.js")
+  // endbuild
 
 mixin inputLine(name, tip, error)
   div.inputLine

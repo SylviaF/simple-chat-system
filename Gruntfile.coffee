@@ -25,10 +25,14 @@ module.exports = (grunt)->
 
   grunt.registerTask "release", [
     #"dev",
-    "clean:release"
+    "clean:release",
+    "copy:release",
+    "useminPrepare",
+    "concat",
     "uglify",
     "cssmin",
-    "copy:release",
+    "filerev",
+    "usemin",
   ]
   
   grunt.registerTask "default", ["dev", "watch"]

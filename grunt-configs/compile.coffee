@@ -15,6 +15,6 @@ module.exports = (grunt, options) ->
     jade:
       compile: 
         options:
-          data: {}
+          pretty: true #为了使用usemin
         files:
-          [expand: true, cwd: 'src', src: [ '**/*.jade' ], dest: 'bin', ext: '.html']
+          [expand: true, cwd: 'src', src: [ '**/*.jade', '!layout.jade'], dest: 'bin', ext: '.html']
