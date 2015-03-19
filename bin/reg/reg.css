@@ -30,6 +30,9 @@
 .container .contentContainer #regForm {
   padding-top: 50px;
 }
+.container .contentContainer #regForm .inputLine {
+  clear: both;
+}
 .container .contentContainer #regForm .inputLine .item {
   float: left;
   font-size: 14px;
@@ -46,16 +49,15 @@
   height: 60px;
   width: 306px;
 }
-.container .contentContainer #regForm .inputLine .inputBox .inputError {
-  background: url(../images/inputError.png) no-repeat 0 0;
+.container .contentContainer #regForm .inputLine .inputBox .inputBorder {
   border: none;
   height: 35px;
   width: 300px;
 }
-.container .contentContainer #regForm .inputLine .inputBox .inputError:hover {
+.container .contentContainer #regForm .inputLine .inputBox .inputBorder:hover {
   background: url(../images/input.png) no-repeat 0 0;
 }
-.container .contentContainer #regForm .inputLine .inputBox .inputError input {
+.container .contentContainer #regForm .inputLine .inputBox .inputBorder input {
   background: none;
   border: none;
   font-size: 14px;
@@ -63,4 +65,43 @@
   line-height: 18px;
   width: 284px;
   padding: 8px;
+}
+.container .contentContainer #regForm .inputLine .inputBox .inputError {
+  background: url(../images/inputError.png) no-repeat 0 0;
+}
+.container .contentContainer #regForm .inputLine .inputBox .inputCorrect {
+  background: url(../images/input.png) no-repeat 0 0;
+}
+.container .contentContainer #regForm .inputLine .inputBox input[type="submit"] {
+  background: url(../images/input.png) no-repeat 0 -344px;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font: bold 22px/52px "微软雅黑";
+  width: 183px;
+}
+.container .contentContainer #regForm .inputLine .tipsBox {
+  float: left;
+  height: 40px;
+  width: 236px;
+}
+.container .contentContainer #regForm .inputLine .tipsBox .tips div {
+  padding-top: 10px;
+}
+.container .contentContainer #regForm .inputLine .tipsBox .tips .tip {
+  background: none;
+  padding-left: 0;
+  color: #808080;
+}
+.container .contentContainer #regForm .inputLine .tipsBox .tips .error {
+  background: url(../images/error.png) no-repeat 0 11px;
+  color: #F66;
+  padding-left: 16px;
+  display: none;
+}
+.container .contentContainer #regForm .inputLine .tipsBox .tips .correct {
+  background: url(../images/correct.png) no-repeat 0 11px;
+  padding-left: 16px;
+  height: 15px;
+  display: none;
 }

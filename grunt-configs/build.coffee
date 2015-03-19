@@ -9,7 +9,8 @@ module.exports = (grunt, options) ->
         expand: true
       release:
         files: [ 
-          {expand: 'true', cwd: 'bin', flatten: true, src: ['**/*.jpg', '**/*.bmp', '**/*.gif', '**/*.png'], dest: 'release/images/'},
+          {expand: 'true', cwd: 'bin/images', flatten: true, src: ['*'], dest: 'release/images/'},
+          {expand: 'true', cwd: 'bin', flatten: true, src: ['**/*.jpg', '**/*.bmp', '**/*.gif', '**/*.png', '!images/*'], dest: 'release/css/images/'},
           {expand: 'true', cwd: 'bin', flatten: true, src: ['**/*.html'], dest: 'release/'}
         ]
     clean:

@@ -1,4 +1,4 @@
 {
-  "directory": "tests/bower_components",  
+  "directory": "bower_components",  
   "shorthand-resolver": "git@222.200.181.218:{{owner}}/{{package}}.git"
 }

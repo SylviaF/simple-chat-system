@@ -22,6 +22,6 @@ module.exports = (grunt, options) ->
         dest: 'release'
     usemin:
       options:
-        assetsDirs: ['release']
+        assetsDirs: ['release', 'release/css', 'release/js', 'release/images']
       html: ['release/*.html']
       css: ['release/css/*.css']

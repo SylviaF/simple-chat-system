@@ -1,0 +1,26 @@
+// build:css css/login.css
+link(rel='stylesheet', href='../css/common.css')
+link(rel='stylesheet', href='login.css')
+// endbuild
+div.loginContainer
+  div.close
+  div.loginContent
+    div.loginHeader
+    div.loginInput
+      div.errHint &nbsp;
+      div.inputLine
+        span.item.account 帐号
+        span.inputBox
+          input(id="loginAccount" type="text" placeholder="QQ号码或邮箱号码" value="")
+        span.link
+          a(href="#") 注册
+      div.inputLine
+        span.item.password 密码
+        span.inputBox
+          input(id="loginPw" type="password" value="")
+    div.loginBtnLine
+      input.loginBtn(type="button" value="")
+// build:js js/login.js
+script(src="../js/jquery-1.11.2.min.js")
+script(src="login.js")
+// endbuild

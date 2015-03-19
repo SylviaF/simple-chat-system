@@ -1,0 +1,84 @@
+.loginContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 380px;
+  height: 228px;
+  margin-left: -191px;
+  margin-top: -114px;
+  z-index: 10;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+  background: #F6F6F6;
+  box-shadow: 0 0 8px #000;
+  .close {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    width: 28px;
+    height: 28px;
+    z-index: 11;
+    background: url(images/loginCloseBtn.png) no-repeat 0 0;
+    cursor: pointer;
+  }
+  .loginContent {
+    padding: 10px;
+    overflow: hidden;
+    .loginHeader {
+      height: 44px;
+      margin-left: 90px;
+      background: url(images/loginLogo.png) no-repeat 0 0;
+    }
+    .loginInput {
+      margin: 15px 0 0 55px;
+      .errHint {
+        width: 280px;
+        color: #FF0000;
+        text-align: center;
+      }
+      .inputLine {
+        margin: 14px 0 0;
+        .item {
+          width: 60px;
+          height: 20px;
+          float: left;
+          margin-right: 5px;
+          text-indent: -1000em;
+          background: url(images/loginBtn.png) no-repeat 0 0;
+        }
+        .account {
+          background-position: 0 -36px;
+        }
+        .password {
+          background-position: -60px -36px;
+        }
+        input {
+          width: 170px;
+          border: 1px solid #CCC;
+          padding: 2px 5px;
+          font-size: 16px;
+          color: #868686;
+        }
+        .link {
+          line-height: 24px;
+          margin-left: 10px;
+        }
+      }
+    }
+    .loginBtnLine {
+      margin: 15px 0 0 168px;
+      .loginBtn {
+        width: 111px;
+        height: 36px;
+        line-height: 20px;
+        margin-left: 14px;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        color: #0C4E7C;
+        background: url(images/loginBtn.png) no-repeat -111px 0;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "simple-chat-system",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "基于node的简单的webqq",
   "keywords": [
     "chat",
@@ -20,6 +20,5 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.1"
   }
 }

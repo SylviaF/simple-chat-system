@@ -1,0 +1,33 @@
+.leftBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 73px;
+  height: 100%;
+  .leftMenu {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 73px;
+    height: 576px;
+    margin: -290px 0 0;
+    padding-top: 10px;
+    background: url(images/leftBarBg.png) no-repeat 0 0;
+    .appBtn {
+      width: 50px;
+      height: 50px;
+      margin-left: 4px;
+      margin-top: 2px;
+      padding: 4px 6.5px;
+      .appIcon {
+        width: 45px;
+        height: 45px;
+        background: url(images/appBtnQQ.png) no-repeat 0 0;
+      }
+      &:hover {
+        background: url(images/appBtnFocus.png) no-repeat 0 0;
+      }
+    }
+  }
+}

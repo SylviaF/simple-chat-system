@@ -16,19 +16,28 @@ block content
       div.left
       div.right
         form#regForm
-          +inputLine("昵称", "请输入昵称", "昵称不可以为空")
+          +inputLine("nick", "text", "昵称", "请输入昵称", "昵称不能为空")
+          +inputLine("pw", "password", "密码", "不含空格的6-16位字符或不小于9位纯数字", "密码不能为空")
+          +inputLine("rpw", "password", "重复密码", "请重新输入密码", "重复密码不能为空")
+          +inputLine("email", "email", "邮箱", "请输入邮箱", "邮箱不能为空")
+          div.inputLine
+            label.item
+            div.inputBox
+              input(type="submit" value="立即注册")
 
 block script
   // build:js js/reg.js
   script(src="reg.js")
   // endbuild
 
-mixin inputLine(name, tip, error)
+mixin inputLine(id, type, name, tip, error)
   div.inputLine
     label.item= name
     div.inputBox
-      div.inputError
-        input(type="text" autocomplete="off" maxlength="24" tabindex="6")
-    div.tips
-      p= tip
-      div.error= error
+      div.inputBorder.inputCorrect
+        input(id=id type=type autocomplete="off" maxlength="24" tabindex="6")
+    div.tipsBox
+      div.tips
+        div.tip= tip
+        div.error= error
+        div.correct
