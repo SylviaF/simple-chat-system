@@ -4,7 +4,9 @@
   "description": "基于node的简单的webqq",
   "main": "",
   "dependencies": {
-    "express": "4.x"
+    "express": "^4.10.2",
+    "requirejs": "^2.1.14",
+    "socket.io": "^0.9.17"
   },
   "repository": {
     "type": "git",
@@ -15,8 +17,6 @@
     "blueimp-tmpl": "^2.5.4",
     "debug": "~0.7",
     "grunt": "~0.4.1",
-    "grunt-bower-requirejs": "^0.11.0",
-    "grunt-bower-task": "^0.3.4",
     "grunt-contrib-clean": "*",
     "grunt-contrib-coffee": "^0.10.1",
     "grunt-contrib-concat": "~0.3.0",
@@ -25,12 +25,12 @@
     "grunt-contrib-jade": "~0.12.0",
     "grunt-contrib-jshint": "~0.6.3",
     "grunt-contrib-less": "^0.11.3",
-    "grunt-usemin": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "~0.5.2",
-    "grunt-express": "^1.4.0",
+    "grunt-express-server": "^0.4.19",
     "grunt-filerev": "*",
     "grunt-shell": "^0.7.0",
+    "grunt-usemin": "*",
     "load-grunt-configs": "^0.4.0",
     "load-grunt-tasks": "^0.6.0",
     "sugar": "^1.4.1",

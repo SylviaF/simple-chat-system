@@ -17,7 +17,7 @@ module.exports = (grunt, options) ->
       files: 
         src: ['release/**/*.{jpg,jpeg,gif,png,ico,js,css}']
     useminPrepare:
-      html: 'bin/**/*.html'
+      html: ['bin/**/*.html', '!bin/index.html']
       options:
         dest: 'release'
     usemin:

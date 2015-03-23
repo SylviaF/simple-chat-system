@@ -1,0 +1,18 @@
+extends ../layout.jade
+
+block title 主页面
+
+block style
+
+block content
+  include mainApp/mainApp.jade
+  include chatBox/chatBox.jade
+  include leftBar/leftBar.jade
+  include login/login.jade
+  include infoBubble/infoBubble.jade
+  div.mask
+block script
+  // build:js js/index.js
+  script(type='text/javascript' src="index.js")
+  // endbuild
+  

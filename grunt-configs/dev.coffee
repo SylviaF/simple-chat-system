@@ -6,17 +6,16 @@ module.exports = (grunt, options) ->
         tasks: [ 'less' ]
       scripts:
         files: 'src/**/*.coffee'
-        tasks: [ 'scripts' ]
+        tasks: [ 'coffee', 'express' ]
       jade:
         files: 'src/**/*.jade'
         tasks: [ 'jade' ]
       copy:
         files: [ 'src/**', '!src/**/*.styl', '!src/**/*.coffee', '!src/**/*.jade' ]
-        tasks: [ 'copy' ]
+        tasks: [ 'copy:build' ]
     express:
-      build:
+      dev:
         options:
-          server: 'tests/server.js'
-          bases: 'tests'
-          livereload: true
+          script: 'bin/server.js'
           port: 3000
+          output: ".+"

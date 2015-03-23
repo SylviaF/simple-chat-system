@@ -1,0 +1,97 @@
+.infoBubbleContainer {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 10px;
+  margin: auto auto auto -150px;
+  width: 300px;
+  height: 32px;
+  font-family: tahoma;
+  background: url(images/infoBubbleBg.png) no-repeat 0 1px;
+}
+.infoBubbleContainer:hover .infoList {
+  display: block;
+}
+.infoBubbleContainer .infoList {
+  display: none;
+  position: absolute;
+  left: 10px;
+  bottom: 30px;
+  width: 280px;
+  height: 210px;
+  background: url(images/infoListBg.png) no-repeat 0 0;
+}
+.infoBubbleContainer .infoList .infoTitle {
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0 0 0 12px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+}
+.infoBubbleContainer .infoList .infoListContainer {
+  background: #FFFFFF;
+  height: 180px;
+  width: 270px;
+  margin: 0 auto;
+}
+.infoBubbleContainer .infoList .infoListContainer .infoListContent {
+  height: 155px;
+  overflow-y: auto;
+}
+.infoBubbleContainer .infoList .infoListContainer .infoListContent li a {
+  display: block;
+  padding: 3px 5px 3px 7px;
+}
+.infoBubbleContainer .infoList .infoListContainer .infoListContent li a .count {
+  float: right;
+}
+.infoBubbleContainer .infoList .infoListContainer .infoListContent li a:hover {
+  background: #CBE7FC;
+  color: #45649E;
+}
+.infoBubbleContainer .infoList .infoListContainer .infoListBtn {
+  height: 20px;
+  padding: 3px 8px 0 12px;
+}
+.infoBubbleContainer .infoList .infoListContainer .infoListBtn .cancelNotifyBtn {
+  float: left;
+}
+.infoBubbleContainer .infoList .infoListContainer .infoListBtn .viewAllBtn {
+  float: right;
+}
+.infoBubbleContainer .bubblePanel {
+  color: #FFF;
+  cursor: pointer;
+  height: 22px;
+  line-height: 20px;
+  margin: 5px 8px;
+}
+.infoBubbleContainer .bubblePanel .msg {
+  display: block;
+  float: left;
+  width: 170px;
+  height: 20px;
+  margin-right: 20px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.infoBubbleContainer .bubblePanel .count {
+  float: left;
+}
+.infoBubbleContainer .bubblePanel .icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 3px 4px 0;
+  vertical-align: middle;
+  background: url(images/infoBubbleIcon.png) no-repeat 0 0;
+}
+.infoBubbleContainer .bubblePanel .singleIcon {
+  float: left;
+  background-position: 0 -16px;
+}
+.infoBubbleContainer .bubblePanel .msgBoxIcon {
+  float: right;
+  background-position: 0 -64px;
+}

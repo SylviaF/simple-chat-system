@@ -1,0 +1,214 @@
+.appMainContainer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 280px;
+  height: 90%;
+  padding: 10px;
+  z-index: 0;
+  .appMainInnner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #e8ebf1 url(images/appMainbg.png) repeat-x 0 0;
+    border: 1px solid #3E7186;
+    border-radius: 5px;
+    overflow: hidden;
+    .appContent {
+      position: static;
+      border: none;
+      border-radius: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      .appTitle {
+        position: static;
+        height: 25px;
+        border-radius: 3px 3px 0 0;
+        margin: 5px;
+        color: #6D6D6D;
+        font-weight: bold;
+        font-family: "微软雅黑", Tahoma, Arial, sans-serif;
+        span {
+          height: 25px;
+          line-height: 15px;
+          text-align: left;
+        }
+        .appTitleBtn {
+          position: absolute;
+          right: -1px;
+          top: -1px;
+          .minBtn {
+            float: right;
+            display: block;
+            width: 28px;
+            height: 20px;
+            margin: 0;
+            background: url(images/appMainBtn.png) repeat 0 -944px;
+          }
+          .closeBtn {
+            float: right;
+            display: block;
+            width: 39px;
+            height: 20px;
+            margin: 0;
+            background: url(images/appMainBtn.png) repeat 0 -784px;
+          }
+        }
+      }
+      .appBody {
+        position: absolute;
+        top: 25px;
+        width: 100%;
+        height: 100%;
+        .appBodyInner {
+          width: 100%;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          .myInfoPanel {
+            position: relative;
+            height: 50px;
+            margin: 5px;
+            overflow: hidden;
+            .myAvatar {
+              position: relative;
+              float: left;
+              width: 40px;
+              height: 40px;
+              padding: 1px;
+              overflow: hidden;
+              background: #FFF;
+              border: 1px solid #999;
+              box-shadow: 1px 1px 3px #666;
+            }
+            .myInfo {
+              margin: 3px 0 0 52px;
+              overflow: hidden;
+              .myNick {
+                float: left;
+                width: 150px;
+                height: 16px;
+                line-height: 16px;
+                font-weight: bold;
+                overflow: hidden;
+              }
+            }
+          }
+          .searchPanel {
+            display: block;
+            height: 25px;
+            border: 1px solid #75A2B7;
+            margin: 35px 2px 2px;
+            overflow: hidden;
+            .searchInput {
+              width: 100%;
+              height: 15px;
+              padding: 5px;
+              margin: 0;
+              line-height: 15px;
+              border: 0 solid #ccc;
+              font-size: 12px;
+              color: #999;
+              overflow: hidden;
+            }
+            .searchBtn {
+              position: relative;
+              float: right;
+              display: inline;
+              margin: -21px 2px 0 0;
+              width: 16px;
+              height: 16px;
+              overflow: hidden;
+              cursor: pointer;
+              background: url(images/appMainIcon.png) no-repeat -122px -82px;
+            }
+          }
+          .appBodyMainPanel {
+            overflow: hidden;
+            position: relative;
+            .appBodyMainInner {
+              display: block;
+              height: 100%;
+              overflow: hidden;
+              margin: 0;
+              padding: 0;
+              .tab {
+                background: #BADBEA;
+                float: left;
+                height: 33px;
+                margin: 0;
+                overflow: hidden;
+                width: 100%;
+                li {
+                  display: inline;
+                  float: left;
+                  height: 100%;
+                  overflow: hidden;
+                  position: relative;
+                  text-align: center;
+                  width: 33%;
+                  .tabIcon {
+                    background: url(images/tabIcon.gif) no-repeat -40px -174px;
+                    height: 33px;
+                    margin: 0 auto;
+                    width: 20px;
+                  }
+                  .friendsIcon {
+                    background-position: -40px -214px;
+                  }
+                }
+                .chose {
+                  background: #EAF3F8;
+                }
+              }
+              .tabContentContainer {
+                position: relative;
+                float: left;
+                width: 100%;
+                overflow: hidden;
+                .tabContentInner {
+                  height: 385px;
+                  overflow-y: overlay;
+                  .friendLine {
+                    height: 40px;
+                    padding-bottom: 6px;
+                    padding-top: 6px;
+                    padding-left: 8px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    img.favatar {
+                      float: left;
+                      height: 40px;
+                      width: 40px;
+                      border: 0 solid #E1E1E1;
+                      padding: 1px;
+                    }
+                    .finfo {
+                      margin-right: 10px;
+                      overflow: hidden;
+                      .fnick, .recentMsg {
+                        height: 16px;
+                        line-height: 16px;
+                        padding: 2px 0;
+                        margin: 0 0 0 5px;
+                        overflow: hidden;
+                        text-decoration: none;
+                      }
+                      .recentMsg {
+                        color: #808080;
+                      }
+                    }
+                    &:hover{
+                      background-color: #C9E7FC;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

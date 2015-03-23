@@ -20,5 +20,8 @@
     "tests"
   ],
   "dependencies": {
+    "express": "4.x",
+    "requirejs": "^2.1.14",
+    "socket.io": "~0.9"
   }
 }

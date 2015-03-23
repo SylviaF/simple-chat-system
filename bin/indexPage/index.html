@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    </title>
+    <meta charset="UTF-8">
+    <!-- build:css css/lib.css-->
+    <link rel="stylesheet" href="../css/common.css">
+    <!-- endbuild-->
+    <!-- build:js js/require.js-->
+    <script src="../js/require.js"></script>
+    <!-- endbuild-->
+  </head>
+  <body>
+    <!-- build:css css/mainApp.css-->
+    <link rel="stylesheet" href="mainApp.css">
+    <!-- endbuild-->
+    <div class="appMainContainer">
+      <div class="appMainInnner">
+        <div class="appContent">
+          <div class="appTitle"><span>QQ</span>
+            <div class="appTitleBtn"><a class="closeBtn"></a><a class="minBtn"></a></div>
+          </div>
+          <div class="appBody">
+            <div class="appBodyInner">
+              <div class="myInfoPanel"><img src="../images/defaultUserAvatar.png" class="myAvatar">
+                <div class="myInfo">
+                  <div class="myNick">min </div>
+                </div>
+              </div>
+              <div class="searchPanel">
+                <input type="text" placeholder="搜索好友" class="searchInput">
+                <div class="searchBtn"></div>
+              </div>
+              <div class="appBodyMainPanel">
+                <div class="appBodyMainInner">
+                  <ul class="tab">
+                    <li class="chose">
+                      <div class="tabIcon friendsIcon"></div>
+                    </li>
+                  </ul>
+                  <div class="tabContentContainer">
+                    <div class="tabContentInner">
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                      <div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"/>
+                        <div class="finfo">
+                          <div class="fnick">jie</div>
+                          <div class="recentMsg">Hi</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- build:css css/chatBox.css-->
+    <link rel="stylesheet" href="chatBox.css">
+    <!-- endbuild-->
+    <div class="chatBox">
+      <div class="chatTitle"><img src="../images/defaultUserAvatar.png" class="favatar">
+        <div class="finfo">
+          <div class="fnick">jie</div>
+        </div>
+        <div class="chatTitleBtn"><a class="closeBtn"></a><a class="minBtn"></a></div>
+      </div>
+      <div class="chatContent">
+        <div class="msgLine">
+          <div class="msgLineTitle me"><span>jie</span><span class="time">2015-02-23 22:42:32</span></div>
+          <div class="msgLineContent">
+            <pre class="msg">hi</pre>
+          </div>
+        </div>
+        <div class="msgLine">
+          <div class="msgLineTitle other"><span>jie</span><span class="time">2015-02-23 22:42:32</span></div>
+          <div class="msgLineContent">
+            <pre class="msg">hi</pre>
+          </div>
+        </div>
+      </div>
+      <div class="chatInputContainer">
+        <div contenteditable="true" class="chatInput"></div>
+        <div class="chatBtn"><a class="send">发送</a></div>
+      </div>
+    </div>
+    <!-- build:css css/leftBar.css-->
+    <link rel="stylesheet" href="leftBar.css">
+    <!-- endbuild-->
+    <div class="leftBar">
+      <div class="leftMenu">
+        <div class="appBtn">
+          <div class="appIcon"></div>
+        </div>
+      </div>
+    </div>
+    <!-- build:css css/login.css-->
+    <link rel="stylesheet" href="login.css">
+    <!-- endbuild-->
+    <div class="loginContainer">
+      <div class="close"></div>
+      <div class="loginContent">
+        <div class="loginHeader"></div>
+        <div class="loginInput">
+          <div class="errHint">&nbsp;</div>
+          <div class="inputLine"><span class="item account">帐号</span><span class="inputBox">
+              <input id="loginAccount" type="text" placeholder="QQ号码或邮箱号码" value=""></span><span class="link"><a href="#">注册</a></span></div>
+          <div class="inputLine"><span class="item password">密码</span><span class="inputBox">
+              <input id="loginPw" type="password" value=""></span></div>
+        </div>
+        <div class="loginBtnLine">
+          <input type="button" value="" class="loginBtn">
+        </div>
+      </div>
+    </div>
+    <!-- build:css css/infoBubble.css-->
+    <link rel="stylesheet" href="infoBubble.css">
+    <!-- endbuild-->
+    <div class="infoBubbleContainer">
+      <div class="infoList">
+        <div class="infoTitle">未读消息(1)</div>
+        <div class="infoListContainer">
+          <div class="infoListContent">
+            <ul>
+              <li><a><span class="nick">min：</span><span class="msg">开心</span><span class="count">(1)</span></a></li>
+            </ul>
+          </div>
+          <div class="infoListBtn"><a class="cancelNotifyBtn">忽略提醒</a><a class="viewAllBtn">查看全部</a></div>
+        </div>
+      </div>
+      <div class="bubblePanel"><span class="icon singleIcon"></span><span class="msg">系统：暂无消息</span><span class="count">0</span><span class="icon msgBoxIcon"></span></div>
+    </div>
+    <div class="mask"></div>
+    <!-- 使用注释和usemin合作生成任务配置，并且修改静态路径-->
+    <!-- build:js js/lib.js-->
+    <script src="../js/jquery-1.11.2.min.js"></script>
+    <!-- endbuild-->
+    <!-- build:js js/index.js-->
+    <script type="text/javascript" src="index.js"></script>
+    <!-- endbuild-->
+  </body>
+</html>

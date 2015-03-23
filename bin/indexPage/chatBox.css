@@ -1,0 +1,123 @@
+.chatBox {
+  display: block;
+  width: 445px;
+  height: 500px;
+  position: absolute;
+  z-index: 34;
+  left: 50%;
+  top: 50%;
+  margin-top: -250px;
+  margin-left: -222.5px;
+  border: 1px solid #3E7186;
+  border-radius: 5px;
+  background: #f4f9fc url(images/chatBoxBg.png) repeat-x 0 0;
+  overflow: hidden;
+}
+.chatBox .chatTitle {
+  padding: 5px;
+  height: 70px;
+}
+.chatBox .chatTitle img.favatar {
+  float: left;
+  width: 30px;
+  height: 30px;
+  padding: 1px;
+  border: 1px solid #CACACA;
+  background: white;
+}
+.chatBox .chatTitle .finfo {
+  margin-right: 10px;
+  overflow: hidden;
+}
+.chatBox .chatTitle .finfo .fnick,
+.chatBox .chatTitle .finfo .recentMsg {
+  height: 16px;
+  line-height: 16px;
+  padding: 2px 0;
+  margin: 0 0 0 5px;
+  overflow: hidden;
+  text-decoration: none;
+}
+.chatBox .chatTitle .finfo .recentMsg {
+  color: #808080;
+}
+.chatBox .chatTitle .chatTitleBtn {
+  position: absolute;
+  right: -1px;
+  top: -1px;
+}
+.chatBox .chatTitle .chatTitleBtn .minBtn {
+  float: right;
+  display: block;
+  width: 28px;
+  height: 20px;
+  margin: 0;
+  background: url(images/chatBoxBtn.png) repeat 0 -944px;
+}
+.chatBox .chatTitle .chatTitleBtn .closeBtn {
+  float: right;
+  display: block;
+  width: 39px;
+  height: 20px;
+  margin: 0;
+  background: url(images/chatBoxBtn.png) repeat 0 -784px;
+}
+.chatBox .chatContent {
+  height: 250px;
+  overflow-y: overlay;
+}
+.chatBox .chatContent .msgLine {
+  display: block;
+  margin: 0;
+  padding: 5px;
+}
+.chatBox .chatContent .msgLine .me {
+  color: #008000;
+}
+.chatBox .chatContent .msgLine .other {
+  color: #0000FF;
+}
+.chatBox .chatContent .msgLine .msgLineTitle {
+  font-size: 12px;
+}
+.chatBox .chatContent .msgLine .msgLineTitle .time {
+  margin-left: 5px;
+}
+.chatBox .chatContent .msgLine .msgLineContent {
+  margin: 2px 10px;
+  font-size: 10pt;
+}
+.chatBox .chatInputContainer {
+  height: 110px;
+  overflow-y: overlay;
+  border-top: 25px solid #D3E8F3;
+  border-bottom: 35px solid #D3E8F3;
+}
+.chatBox .chatInputContainer .chatInput {
+  font-size: 10pt;
+  width: 100%;
+  height: 100%;
+  word-break: break-all;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.chatBox .chatInputContainer .chatBtn {
+  position: absolute;
+  right: 10px;
+  bottom: 1px;
+}
+.chatBox .chatInputContainer .chatBtn .send {
+  background: url(images/chatBoxIcon.png) no-repeat 0 -702px;
+  display: block;
+  float: right;
+  height: 22px;
+  line-height: 20px;
+  margin: 5px 5px 4px 0;
+  overflow: hidden;
+  text-align: center;
+  width: 69px;
+}
+.chatBox .chatInputContainer .chatBtn .send:hover {
+  background: url(images/chatBoxIcon.png) no-repeat 0 -660px;
+}

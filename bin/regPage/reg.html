@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    </title>
+    <meta charset="UTF-8">
+    <!-- build:css css/lib.css-->
+    <link rel="stylesheet" href="../css/common.css">
+    <!-- endbuild-->
+    <!-- build:js js/require.js-->
+    <script src="../js/require.js"></script>
+    <!-- endbuild-->
+    <!-- build:css css/reg.css-->
+    <link rel="stylesheet" href="reg.css">
+    <!-- endbuild-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="header"><a title="QQ注册" class="logo"></a><a title="立即登录" id="linkToLogin">立即登录</a></div>
+      <div class="contentContainer">
+        <div class="left"></div>
+        <div class="right">
+          <form id="regForm">
+            <div class="inputLine">
+              <label class="item">昵称</label>
+              <div class="inputBox">
+                <div class="inputBorder inputCorrect">
+                  <input id="nick" type="text" autocomplete="off" maxlength="24" tabindex="6"/>
+                </div>
+              </div>
+              <div class="tipsBox">
+                <div class="tips">
+                  <div class="tip">请输入昵称</div>
+                  <div class="error">昵称不能为空</div>
+                  <div class="correct"></div>
+                </div>
+              </div>
+            </div>
+            <div class="inputLine">
+              <label class="item">密码</label>
+              <div class="inputBox">
+                <div class="inputBorder inputCorrect">
+                  <input id="pw" type="password" autocomplete="off" maxlength="24" tabindex="6"/>
+                </div>
+              </div>
+              <div class="tipsBox">
+                <div class="tips">
+                  <div class="tip">不含空格的6-16位字符或不小于9位纯数字</div>
+                  <div class="error">密码不能为空</div>
+                  <div class="correct"></div>
+                </div>
+              </div>
+            </div>
+            <div class="inputLine">
+              <label class="item">重复密码</label>
+              <div class="inputBox">
+                <div class="inputBorder inputCorrect">
+                  <input id="rpw" type="password" autocomplete="off" maxlength="24" tabindex="6"/>
+                </div>
+              </div>
+              <div class="tipsBox">
+                <div class="tips">
+                  <div class="tip">请重新输入密码</div>
+                  <div class="error">重复密码不能为空</div>
+                  <div class="correct"></div>
+                </div>
+              </div>
+            </div>
+            <div class="inputLine">
+              <label class="item">邮箱</label>
+              <div class="inputBox">
+                <div class="inputBorder inputCorrect">
+                  <input id="email" type="email" autocomplete="off" maxlength="24" tabindex="6"/>
+                </div>
+              </div>
+              <div class="tipsBox">
+                <div class="tips">
+                  <div class="tip">请输入邮箱</div>
+                  <div class="error">邮箱不能为空</div>
+                  <div class="correct"></div>
+                </div>
+              </div>
+            </div>
+            <div class="inputLine">
+              <label class="item"></label>
+              <div class="inputBox">
+                <input type="submit" value="立即注册">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 使用注释和usemin合作生成任务配置，并且修改静态路径-->
+    <!-- build:js js/lib.js-->
+    <script src="../js/jquery-1.11.2.min.js"></script>
+    <!-- endbuild-->
+    <!-- build:js js/reg.js-->
+    <script src="reg.js"></script>
+    <!-- endbuild-->
+  </body>
+</html>
