@@ -11,9 +11,10 @@ module.exports = (grunt)->
 
 
   grunt.registerTask "dev", [
+    "mongobin",
     "clean:build",
-    "jade",
     "copy:build",
+    "copy:jade",
     "coffee",
     "less",
     "express",

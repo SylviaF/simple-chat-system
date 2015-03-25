@@ -6,7 +6,14 @@ module.exports = (grunt, options) ->
         files: [
           {expand: true, cwd: 'src', flatten: false, src: ['{css,js}/*.{css,js}'], dest: 'bin'},
           {expand: true, cwd: 'src', flatten: true, src: ['images/*'], dest: 'bin/images/'},
-          {expand: true, cwd: 'src', flatten: true, src: 'indexPage/**/images/*', dest: 'bin/indexPage/images'}
+          {expand: true, cwd: 'src', flatten: true, src: 'indexPage/**/images/*', dest: 'bin/indexPage/images'},
+          {expand: true, cwd: 'src', flatten: true, src: 'regPage/**/images/*', dest: 'bin/regPage/images'}
+        ]
+      jade:
+        files: [
+          {expand: true, cwd: 'src/indexPage', flatten: false, src: '**/*.jade', dest: 'bin/views'},
+          {expand: true, cwd: 'src/regPage', flatten: false, src: '**/*.jade', dest: 'bin/views'},
+          {expand: true, cwd: 'src', flatten: false, src: '*.jade', dest: 'bin/views'}
         ]
       release:
         files: [ 

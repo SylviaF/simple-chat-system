@@ -1,25 +1,36 @@
 (function() {
-  var app, express, io, server;
+  var app, bodyParser, express, path, routes;
 
   express = require('express');
 
+  path = require('path');
+
+  bodyParser = require('body-parser');
+
+  routes = require('./routes/index');
+
   app = express();
 
-  server = require('http').createServer(app);
+  console.log(path.join(__dirname, 'views'));
 
-  io = require('socket.io').listen(server);
+  app.set('views', path.join(__dirname, 'views'));
 
-  app.get('/index', function(req, res) {
-    return res.sendFile(__dirname + '/indexPage/index.html');
-  });
+  app.set('view engine', 'jade');
+
+  app.use(bodyParser.json());
+
+  app.use(bodyParser.urlencoded({
+    extended: false
+  }));
+
+  app.use(express['static'](__dirname + '/regPage'));
 
   app.use(express['static'](__dirname + '/indexPage'));
 
   app.use(express['static'](__dirname));
 
-  app.listen(3000, function() {
-    console.log('server listening on :3000');
-    return null;
-  });
+  app.use('/', routes);
+
+  module.exports = app;
 
 }).call(this);

@@ -1,6 +1,6 @@
-extends ../layout.jade
+extends ./layout.jade
 
-block title 主页面
+block title "主页面"
 
 block style
 
@@ -10,6 +10,7 @@ block content
   include leftBar/leftBar.jade
   include login/login.jade
   include infoBubble/infoBubble.jade
+  include searchPanel/searchPanel.jade
   div.mask
 block script
   // build:js js/index.js

@@ -8,6 +8,9 @@ define (require)->
     this.errHint = $('.loginContainer .errHint')
     this.loginBtn = $('.loginContainer .loginBtn')
     this.mask = $('.mask')
+    this.appMainNick = $('.appMainContainer .myNick')
+    this.appMain = $('.appMainContainer')
+    this.islogin = false
     null
 
   LoginPanel.prototype =
@@ -29,14 +32,36 @@ define (require)->
           else if (!that.pwIpt.val().length)
             that.errHint.html('你还没有输入密码')
           else
-            that.hide()
+            $.ajax
+              type: 'POST'
+              data: {
+                email: that.accountIpt.val()
+                pw: that.pwIpt.val()
+              }
+              url: '/api/login'
+              dataType: 'json'
+              success: (data)->
+                if !data.flag
+                  that.errHint.html(data.err)
+                else
+                  # 匹配成功
+                  that.islogin = true
+                  that.appMainNick.html data.result.nick
+                  that.appMain.show()
+                  console.log data.result
+                  that.hide()
+              error: (err)->
+                alert(err)
             
       )
     show: ()->
-      this.all.show()
-      this.mask.show()
+      if !this.islogin
+        this.all.show()
+        this.mask.show()
     hide: ()->
       this.all.hide()
       this.mask.hide()
+    setIslogin: (islogin)->
+      this.islogin = islogin
 
   exports = LoginPanel

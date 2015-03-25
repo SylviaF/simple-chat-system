@@ -72,7 +72,7 @@
 .container .contentContainer #regForm .inputLine .inputBox .inputCorrect {
   background: url(../images/input.png) no-repeat 0 0;
 }
-.container .contentContainer #regForm .inputLine .inputBox input[type="submit"] {
+.container .contentContainer #regForm .inputLine .inputBox input[type="button"] {
   background: url(../images/input.png) no-repeat 0 -344px;
   border: none;
   color: #FFF;

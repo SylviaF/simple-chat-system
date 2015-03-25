@@ -1,0 +1,26 @@
+// build:css css/chatBox.css
+link(rel='stylesheet', href='chatBox.css')
+// endbuild
+div.chatBox
+  div.chatTitle
+    img.favatar(src="../images/defaultUserAvatar.png")
+    div.finfo
+      div.fnick jie
+    div.chatTitleBtn
+      a.closeBtn
+      a.minBtn
+  div.chatContent
+    +msgLine('me')
+    +msgLine('other')
+  div.chatInputContainer
+    div.chatInput(contenteditable="true")
+    div.chatBtn
+      a.send 发送
+
+mixin msgLine(from)
+  div.msgLine
+    div.msgLineTitle(class=from)
+      span jie
+      span.time 2015-02-23 22:42:32
+    div.msgLineContent 
+      pre.msg hi

@@ -1,0 +1,35 @@
+// build:css css/mainApp.css
+link(rel='stylesheet', href='mainApp.css')
+// endbuild
+div.appMainContainer
+  div.appMainInnner
+    div.appContent
+      div.appTitle 
+        span QQ
+        div.appTitleBtn
+          a.closeBtn
+          a.minBtn
+      div.appBody
+        div.appBodyInner
+          div.myInfoPanel
+            img.myAvatar(src="../images/defaultUserAvatar.png")
+            div.myInfo
+              div.myNick min 
+          div.searchPanel
+            input.searchInput(type="text" placeholder="搜索好友")
+            div.searchBtn
+          div.appBodyMainPanel
+            div.appBodyMainInner
+              ul.tab
+                li.chose
+                  div.tabIcon.friendsIcon
+              div.tabContentContainer
+                div.tabContentInner
+                  +friendLine()
+
+mixin friendLine()
+  div.friendLine
+    img.favatar(src="../images/defaultUserAvatar.png")
+    div.finfo
+      div.fnick jie
+      div.recentMsg Hi

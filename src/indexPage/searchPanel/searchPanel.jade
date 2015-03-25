@@ -1,0 +1,37 @@
+// build:css css/searchPanel.css
+link(rel='stylesheet', href='searchPanel.css')
+// endbuild
+div.searchPanelContainer
+  div.searchPanelTitle
+    span 查找好友
+    div.searchPanelTitleBtn
+      a.closeBtn
+  div.searchPanelContent
+    h5 查找方式
+    div.inputForm
+      input(type="radio" name="method" value="0" checked)
+      span 精确查找
+      input(type="radio" name="method" value="1")
+      span 查找所有
+      div.inputs
+        label 邮箱
+        input.semail(type="text")
+        label 昵称
+        input.snick(type="text")
+    div.searchResult
+      +findResultItem('odd','jie', '是', '2@qq.com')
+      +findResultItem('','jie', '是', '2@qq.com')
+  div.searchPanelBtn 
+    a 查找
+
+mixin findResultItem(classname, nick, isOnline, email)
+  div.findItem(class= classname)
+    div.info
+      div.nick= nick
+      div.second
+        span 在线：
+        span.isOnline= isOnline
+      div.second
+        span 邮箱：
+        span.email= email
+    div.btn 加为好友

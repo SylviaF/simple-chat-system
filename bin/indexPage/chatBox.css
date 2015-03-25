@@ -1,9 +1,9 @@
 .chatBox {
-  display: block;
+  display: none;
   width: 445px;
   height: 500px;
   position: absolute;
-  z-index: 34;
+  z-index: 9;
   left: 50%;
   top: 50%;
   margin-top: -250px;

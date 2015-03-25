@@ -1,0 +1,126 @@
+.searchPanelContainer {
+  width: 540px;
+  height: 420px;
+  z-index: 8;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -210px;
+  margin-left: -270px;
+  background: #F5FAFC url(images/searchPanelBg.png) repeat-x 0 0;
+  border: 1px solid #3E7186;
+  border-radius: 5px;
+  .searchPanelTitle {
+    position: static;
+    height: 25px;
+    border-radius: 3px 3px 0 0;
+    margin: 5px;
+    color: #6D6D6D;
+    font-weight: bold;
+    font-family: "微软雅黑", Tahoma, Arial, sans-serif;
+    span {
+      height: 25px;
+      line-height: 15px;
+      text-align: left;
+    }
+    .searchPanelTitleBtn {
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      .minBtn {
+        float: right;
+        display: block;
+        width: 28px;
+        height: 20px;
+        margin: 0;
+        background: url(images/searchPanelBtn.png) repeat 0 -944px;
+      }
+      .closeBtn {
+        float: right;
+        display: block;
+        width: 39px;
+        height: 20px;
+        margin: 0;
+        background: url(images/searchPanelBtn.png) repeat 0 -784px;
+      }
+    }
+  }
+  .searchPanelContent {
+    width: 520px;
+    height: 250px;
+    padding: 50px 10px;
+    h5{
+      margin-bottom: 10px;
+    }
+    .inputForm {
+      display: block;
+      span{
+        margin-right: 10px;
+      }
+      label {
+        display: block;
+        padding: 25px 0 5px;
+        font-size: 15px;
+      }
+      input[type="text"] {
+        height: 20px;
+        line-height: 15px;
+        width: 100%;
+      }
+    }
+    .searchResult {
+      display: none;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      .odd {
+        background: #EDEFEF;
+      }
+      .findItem {
+        padding: 10px;
+        height: 40px;
+        margin-bottom: 5px;
+        font-size: 12px;
+        .info {
+          float: left;
+          height: 40px;
+          width: 400px;
+          div.second {
+            padding-top: 5px;
+            float: left;
+            padding-right: 10px;
+          }
+        }
+        .btn {
+          background: url(images/searchPanelAddBtn.png) no-repeat 6px 5px;
+          cursor: pointer;
+          float: left;
+          display: inline;
+          height: 24px;
+          line-height: 24px;
+          margin-top: 8px;
+          margin-left: 5px;
+          text-indent: 26px;
+          width: 80px;
+        }
+      }
+    }
+  }
+  .searchPanelBtn {
+    a {
+      float: right;
+      background: url(images/searchPanelBtn.png) no-repeat 0 -702px;
+      height: 22px;
+      line-height: 20px;
+      margin: 0 10px 0 0;
+      width: 69px;
+      color: #000;
+      text-align: center;
+      cursor: pointer;
+      &:hover{
+        background: url(images/searchPanelBtn.png) no-repeat 0 -660px;
+      }
+    }
+  }
+}

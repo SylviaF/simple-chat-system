@@ -3,6 +3,8 @@ RegForm = ()->
   this.pw = $('#pw')
   this.rpw = $('#rpw')
   this.email = $('#email')
+  this.regBtn = $('#regBtn')
+  this.ready = [false, false, false, false]
   null
 
 RegForm.prototype = 
@@ -32,12 +34,53 @@ RegForm.prototype =
       ()->
         that.checkEmail this
     )
+
+    # click事件
+    that.regBtn.click(
+      ()->
+        if that.checkReady()
+          $.ajax
+            method: 'POST'
+            url: '/api/checkEmailExist'
+            data: 
+              nick: that.nick.val()
+              pw: that.pw.val()
+              email: that.email.val()
+            dataType: 'json'
+            success: (data)->
+              console.log data
+              if !data.flag
+                alert(data.err)
+              else
+                alert("您已经成功注册！可用邮箱号登录")
+            error: (err)->
+              console.log err
+
+    )
+
+  checkReady: ()->
+    if this.ready[0] is false
+      this.checkNick(this.nick)
+    else if this.ready[1] is false
+      this.checkPw(this.pw)
+    else if this.ready[2] is false
+      this.checkRpw(this.rpw)
+    else if this.ready[3] is false
+      this.checkEmail(this.email)
+
+    if this.ready[0] is true and this.ready[1] is true and this.ready[2] is true and this.ready[3] is true
+      true
+    else 
+      false
+      
   # 检查昵称格式
   checkNick: (obj)->
     if !obj.value.length
       this.showError obj, '昵称不可以为空'
+      this.ready[0] = false
       return
     this.showCorrect obj
+    this.ready[0] = true
   checkPw: (obj)->
     pw = obj.value
     regExp1 = /\s/
@@ -46,31 +89,43 @@ RegForm.prototype =
     regExp4 = /[\u4E00-\u9FA5]+/
     if !pw.length
       this.showError obj, '密码不可以为空'
+      this.ready[1] = false
     else if regExp1.test pw
       this.showError obj, '不能包含空格'
+      this.ready[1] = false
     else if regExp2.test pw
       this.showError obj, '不能为低于9位的纯数字'
+      this.ready[1] = false
     else if regExp3.test pw
       this.showError obj, '长度为6-16个字符'
+      this.ready[1] = false
     else if regExp4.test pw
       this.showError obj, '不能含有中文'
+      this.ready[1] = false
     else
       this.showCorrect obj
+      this.ready[1] = true
   checkRpw: (obj)->
     if !obj.value.length
       this.showError obj, '重复密码不可以为空'
-    else if obj.value != this.pw.value
+      this.ready[2] = false
+    else if obj.value != this.pw.val()
       this.showError obj, '两次密码输入不一致'
+      this.ready[2] = false
     else
       this.showCorrect obj
+      this.ready[2] = true
   checkEmail: (obj)->
     regExp = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     if !obj.value.length
       this.showError obj, '邮箱不可以为空'
+      this.ready[3] = false
     else if regExp.test obj.value
       this.showCorrect obj
+      this.ready[3] = true
     else
       this.showError obj, '邮箱格式不正确'
+      this.ready[3] = false
 
   # 恢复初始提示模样（当输入时）
   focusIpt: (obj)->
