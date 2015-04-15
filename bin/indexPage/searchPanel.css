@@ -1,4 +1,5 @@
 .searchPanelContainer {
+  display: none;
   width: 540px;
   height: 420px;
   z-index: 8;

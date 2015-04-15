@@ -214,3 +214,8 @@
 .appMainContainer .appMainInnner .appContent .appBody .appBodyInner .appBodyMainPanel .appBodyMainInner .tabContentContainer .tabContentInner .friendLine:hover {
   background-color: #C9E7FC;
 }
+.appMainContainer .appMainInnner .appContent .appFooter {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+}

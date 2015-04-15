@@ -42,6 +42,7 @@ app.set('port', port)
 
 # 创建HTTP服务器实例
 server = http.createServer(app)
+require('./io') server
 
 # 启动网络服务监听端口
 server.listen(port)

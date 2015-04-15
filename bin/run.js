@@ -52,6 +52,8 @@
 
   server = http.createServer(app);
 
+  require('./io')(server);
+
   server.listen(port);
 
 }).call(this);

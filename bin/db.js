@@ -101,26 +101,27 @@
     return instance;
   };
 
-  exports.getAccountsByEmails = function(emails, callback) {
-    var regExp, tmp;
-    tmp = '(' + emails.join('|') + ')';
-    regExp = new RegExp(tmp);
-    return Account.find({
-      email: regExp
-    }, callback);
-  };
-
-  exports.getFriends = function(myemail, callback) {
+  exports.getFriendsEmail = function(myemail, callback) {
     return Account.findOne({
       email: myemail
     }, 'friends', callback);
+  };
+
+  exports.getFriends = function(FEmails, callback) {
+    return Account.find({
+      email: {
+        $in: FEmails
+      }
+    }, '-pw', callback);
   };
 
   exports.addFriend = function(myemail, femial, callback) {
     return Account.findOne({
       email: myemail
     }, function(err, doc) {
-      return doc.friends.push(femial);
+      if (!err) {
+        return doc.friends.push(femial);
+      }
     });
   };
 

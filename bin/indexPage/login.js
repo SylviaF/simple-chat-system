@@ -1,7 +1,7 @@
 (function() {
-  define(function(require) {
+  define(["mainApp"], function(MainApp) {
     var LoginPanel, exports;
-    LoginPanel = function() {
+    LoginPanel = function(socket) {
       this.all = $('.loginContainer');
       this.closeBtn = $('.loginContainer .close');
       this.accountIpt = $('.loginContainer #loginAccount');
@@ -9,13 +9,13 @@
       this.errHint = $('.loginContainer .errHint');
       this.loginBtn = $('.loginContainer .loginBtn');
       this.mask = $('.mask');
-      this.appMainNick = $('.appMainContainer .myNick');
-      this.appMain = $('.appMainContainer');
+      this.mainApp = new MainApp(socket);
       this.islogin = false;
+      this.socket = socket;
       return null;
     };
     LoginPanel.prototype = {
-      init: function() {
+      init: function(socket) {
         console.log(this);
         return this.addEvent();
       },
@@ -44,9 +44,32 @@
                   return that.errHint.html(data.err);
                 } else {
                   that.islogin = true;
-                  that.appMainNick.html(data.result.nick);
-                  that.appMain.show();
+                  that.socket.emit('online user', {
+                    email: data.result.email,
+                    nick: data.result.nick
+                  });
                   console.log(data.result);
+                  $.ajax({
+                    type: 'POST',
+                    data: {
+                      emails: data.result.friends
+                    },
+                    url: '/api/getFriends',
+                    dataType: 'json',
+                    success: function(data1) {
+                      console.log('friends: ', data1);
+                      if (!data1.flag) {
+                        that.mainApp.init(data.result, []);
+                        return that.mainApp.show();
+                      } else {
+                        that.mainApp.init(data.result, data1.result);
+                        return that.mainApp.show();
+                      }
+                    },
+                    error: function(err) {
+                      return console.log(err);
+                    }
+                  });
                   return that.hide();
                 }
               },

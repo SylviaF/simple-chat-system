@@ -1,6 +1,6 @@
-define (require)->
+define ["mainApp"], (MainApp)->
 
-  LoginPanel = ()->
+  LoginPanel = (socket)->
     this.all = $('.loginContainer')
     this.closeBtn = $('.loginContainer .close')
     this.accountIpt = $('.loginContainer #loginAccount')
@@ -8,13 +8,13 @@ define (require)->
     this.errHint = $('.loginContainer .errHint')
     this.loginBtn = $('.loginContainer .loginBtn')
     this.mask = $('.mask')
-    this.appMainNick = $('.appMainContainer .myNick')
-    this.appMain = $('.appMainContainer')
+    this.mainApp = new MainApp(socket)
     this.islogin = false
+    this.socket = socket
     null
 
   LoginPanel.prototype =
-    init: ()->
+    init: (socket)->
       console.log(this)
       this.addEvent()
     addEvent: ()->
@@ -46,9 +46,26 @@ define (require)->
                 else
                   # 匹配成功
                   that.islogin = true
-                  that.appMainNick.html data.result.nick
-                  that.appMain.show()
+                  that.socket.emit 'online user', {email: data.result.email, nick: data.result.nick}
+                  # that.mainApp.init(data.result)
+                  # that.mainApp.show()
                   console.log data.result
+                  $.ajax
+                    type: 'POST'
+                    data: 
+                      emails: data.result.friends
+                    url: '/api/getFriends'
+                    dataType: 'json'
+                    success: (data1)->
+                      console.log 'friends: ', data1
+                      if !data1.flag
+                        that.mainApp.init(data.result, [])
+                        that.mainApp.show()
+                      else
+                        that.mainApp.init(data.result, data1.result)
+                        that.mainApp.show()
+                    error: (err)->
+                      console.log err
                   that.hide()
               error: (err)->
                 alert(err)

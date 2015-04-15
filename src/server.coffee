@@ -12,7 +12,6 @@ routes = require('./routes/index')
 app = express()
 # app.set('view engine', 'html');
 # app.engine('html', hbs.__express);
-console.log path.join(__dirname, 'views')
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 

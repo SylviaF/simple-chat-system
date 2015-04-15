@@ -125,7 +125,7 @@
   });
 
   router.post('/api/getFriends', function(req, res, next) {
-    return db.getFriends(req.body.email, function(err, result) {
+    return db.getFriends(req.body.emails, function(err, result) {
       if (err) {
         return res.json({
           'flag': false,
@@ -137,7 +137,48 @@
           'result': []
         });
       } else {
-        return db.getAccountsByEmails(result.friends, function(err, _result) {
+        return res.json({
+          'flag': true,
+          'result': result
+        });
+      }
+    });
+  });
+
+  router.post('/api/isFriend', function(req, res, next) {
+    return db.getFriendsEmail(req.body.myemail, function(err, result) {
+      var index;
+      if (err) {
+        return res.json({
+          'flag': false,
+          'err': err
+        });
+      } else {
+        index = result.friends.indexOf(req.body.femail);
+        if (index === -1) {
+          return res.json({
+            'flag': true,
+            'result': false
+          });
+        } else {
+          return res.json({
+            'flag': true,
+            'result': true
+          });
+        }
+      }
+    });
+  });
+
+  router.post('/api/addFriend', function(req, res, next) {
+    return db.addFriend(req.body.myemail, req.body.femail, function(err, result) {
+      if (err) {
+        return res.json({
+          'flag': false,
+          'err': err
+        });
+      } else {
+        return db.getAccountByEmail(req.body.femail, function(err, result) {
           if (err) {
             return res.json({
               'flag': false,
@@ -150,31 +191,6 @@
             });
           }
         });
-      }
-    });
-  });
-
-  router.post('/api/isFriend', function(req, res, next) {
-    return db.getFriends(req.body.myemail, function(err, result) {
-      var index;
-      if (err) {
-        return res.json({
-          'flag': false,
-          'err': err
-        });
-      } else {
-        index = result.indexOf(req.body.femail);
-        if (index === -1) {
-          return res.json({
-            'flag': true,
-            'result': false
-          });
-        } else {
-          return res.json({
-            'flag': true,
-            'result': true
-          });
-        }
       }
     });
   });

@@ -7,6 +7,10 @@ html
     // build:css css/lib.css
     link(rel='stylesheet', href='../css/common.css')
     // endbuild
+    // build:js js/lib.js
+    script(src="../js/jquery-1.11.2.min.js")
+    script(type='text/javascript' src="/socket.io/socket.io.js")
+    // endbuild
     // build:js js/require.js
     script(src='../js/require.js')
     // endbuild
@@ -14,7 +18,4 @@ html
   body
     block content
     // 使用注释和usemin合作生成任务配置，并且修改静态路径
-    // build:js js/lib.js
-    script(src="../js/jquery-1.11.2.min.js")
-    // endbuild
     block script

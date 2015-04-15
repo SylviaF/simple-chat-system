@@ -1,18 +1,15 @@
 (function() {
-  require(['jquery', 'login', 'infoBubble', 'leftBar', 'searchPanel'], function($, LoginPanel, InfoBubble, LeftBar, SearchPanel) {
+  require(['login', 'leftBar'], function(LoginPanel, LeftBar) {
     var WebApp;
-    WebApp = function() {
-      this.loginPanel = new LoginPanel();
-      this.infoBubble = new InfoBubble();
-      this.leftBar = new LeftBar();
-      this.searchPanel = new SearchPanel();
+    WebApp = function(socket) {
+      this.loginPanel = new LoginPanel(socket);
+      this.leftBar = new LeftBar(socket);
+      this.socket = socket;
       return null;
     };
     WebApp.prototype = {
       init: function() {
         this.loginPanel.init();
-        this.infoBubble.init();
-        this.searchPanel.init();
         return this.addEvent();
       },
       addEvent: function() {
@@ -24,9 +21,19 @@
       }
     };
     return $(function() {
-      var webApp;
-      webApp = new WebApp();
-      return webApp.init();
+      var socket, _socket;
+      socket = null;
+      _socket = io.connect('http://localhost');
+      return _socket.on('connect', function(data) {
+        var webApp;
+        socket = _socket;
+        if (!socket) {
+          alert('没有连接到服务器');
+          return;
+        }
+        webApp = new WebApp(socket);
+        return webApp.init();
+      });
     });
   });
 
