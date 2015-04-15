@@ -15,7 +15,7 @@
       return null;
     };
     LoginPanel.prototype = {
-      init: function(socket) {
+      init: function() {
         console.log(this);
         return this.addEvent();
       },
@@ -45,6 +45,7 @@
                 } else {
                   that.islogin = true;
                   that.socket.emit('online user', {
+                    id: data.result._id,
                     email: data.result.email,
                     nick: data.result.nick
                   });
@@ -52,7 +53,7 @@
                   $.ajax({
                     type: 'POST',
                     data: {
-                      emails: data.result.friends
+                      ids: data.result.friends
                     },
                     url: '/api/getFriends',
                     dataType: 'json',

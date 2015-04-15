@@ -60,7 +60,7 @@ router.post '/api/getAccouts', (req, res, next)->
 
 # 用于appMain拿到好友信息
 router.post '/api/getFriends', (req, res, next)->
-  db.getFriends req.body.emails, (err, result)->
+  db.getFriends req.body.ids, (err, result)->
     if err 
       res.json {'flag': false, 'err': err}
     else if !result
@@ -74,21 +74,21 @@ router.post '/api/getFriends', (req, res, next)->
       #     res.json {'flag': true, 'result': result}
 
 router.post '/api/isFriend', (req, res, next)->
-  db.getFriendsEmail req.body.myemail, (err, result)->
+  db.getFriendsId req.body.myid, (err, result)->
     if err 
       res.json {'flag': false, 'err': err}
     else 
-      index = result.friends.indexOf req.body.femail
+      index = result.friends.indexOf req.body.fid
       if index == -1
         res.json {'flag': true, 'result': false}
       else
         res.json {'flag': true, 'result': true}
 router.post '/api/addFriend', (req, res, next)->
-  db.addFriend req.body.myemail, req.body.femail, (err, result)->
+  db.addFriend req.body.myid, req.body.fid, (err, result)->
     if err 
       res.json {'flag': false, 'err': err}
     else
-      db.getAccountByEmail req.body.femail, (err, result)->
+      db.getAccountById req.body.fid, (err, result)->
         if err
           res.json {'flag': false, 'err': err}
         else

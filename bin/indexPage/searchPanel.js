@@ -17,9 +17,11 @@
       return null;
     };
     SearchPanel.prototype = {
-      init: function(myemail) {
+      init: function(myaccount) {
         this.all.hide();
-        this.all.data('myemail', myemail);
+        this.all.data('myid', myaccount._id);
+        this.all.data('myemail', myaccount.email);
+        this.all.data('mynick', myaccount.nick);
         return this.addEvent();
       },
       addEvent: function() {
@@ -56,6 +58,7 @@
                 return console.log(data.err);
               } else {
                 that.heading.html('查找结果');
+                console.log(data.result);
                 that.addUserList(data.result);
                 that.inputForm.hide();
                 return that.searchResult.show();
@@ -78,18 +81,18 @@
           that.addUserItem(user, cls);
         }
         return $('.searchPanelContainer .findItem .addFriendBtn').click(function() {
-          var femail, myemail;
-          myemail = that.all.data('myemail');
-          femail = $(this).prev('.info').find('.email').html();
-          if (myemail === femail) {
+          var fid, myid;
+          myid = that.all.data('myid');
+          fid = $(this).prev('.info').find('.id').html();
+          if (myid === fid) {
             alert('不可添加自己为好友');
             return;
           }
           $.ajax({
             type: 'POST',
             data: {
-              myemail: myemail,
-              femail: femail
+              myid: myid,
+              fid: fid
             },
             url: '/api/isFriend',
             dataType: 'json',
@@ -99,11 +102,15 @@
               } else {
                 if (!data.result) {
                   return that.socket.emit('req add friend', {
-                    from: myemail,
-                    to: femail
+                    from: {
+                      id: myid,
+                      nick: that.all.data('mynick'),
+                      email: that.all.data('myemail')
+                    },
+                    to: fid
                   });
                 } else {
-                  return alert(femail, ' 已经是你的好友了，不需添加好友关系');
+                  return alert(fid, ' 已经是你的好友了，不需添加好友关系');
                 }
               }
             },
@@ -116,7 +123,7 @@
       },
       addUserItem: function(userItem, classname) {
         var array, item;
-        array = ['<div class="findItem ' + classname + '"><div class="info"><div class="nick">', userItem.nick, '</div><div class="second"><span>在线：</span><span class="isOnline">是</span></div><div class="second"><span>邮箱：</span><span class="email">', userItem.email, '</span></div></div><div class="btn addFriendBtn">加为好友</div></div>'];
+        array = ['<div class="findItem ' + classname + '"><div class="info"><div class="nick">', userItem.nick, '</div><div class="second"><span>在线：</span><span class="isOnline">是</span></div><div class="second"><span>邮箱：</span><span class="email">', userItem.email, '</span><span class="id hidden">', userItem._id, '</span></div></div><div class="btn addFriendBtn">加为好友</div></div>'];
         item = array.join('');
         return this.searchResult.append(item);
       },

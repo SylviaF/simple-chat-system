@@ -125,7 +125,7 @@
   });
 
   router.post('/api/getFriends', function(req, res, next) {
-    return db.getFriends(req.body.emails, function(err, result) {
+    return db.getFriends(req.body.ids, function(err, result) {
       if (err) {
         return res.json({
           'flag': false,
@@ -146,7 +146,7 @@
   });
 
   router.post('/api/isFriend', function(req, res, next) {
-    return db.getFriendsEmail(req.body.myemail, function(err, result) {
+    return db.getFriendsId(req.body.myid, function(err, result) {
       var index;
       if (err) {
         return res.json({
@@ -154,7 +154,7 @@
           'err': err
         });
       } else {
-        index = result.friends.indexOf(req.body.femail);
+        index = result.friends.indexOf(req.body.fid);
         if (index === -1) {
           return res.json({
             'flag': true,
@@ -171,14 +171,14 @@
   });
 
   router.post('/api/addFriend', function(req, res, next) {
-    return db.addFriend(req.body.myemail, req.body.femail, function(err, result) {
+    return db.addFriend(req.body.myid, req.body.fid, function(err, result) {
       if (err) {
         return res.json({
           'flag': false,
           'err': err
         });
       } else {
-        return db.getAccountByEmail(req.body.femail, function(err, result) {
+        return db.getAccountById(req.body.fid, function(err, result) {
           if (err) {
             return res.json({
               'flag': false,

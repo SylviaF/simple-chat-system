@@ -43,7 +43,7 @@
   display: block;
   padding: 3px 5px 3px 7px;
 }
-.infoBubbleContainer .infoList .infoListContainer .infoListContent li a .count {
+.infoBubbleContainer .infoList .infoListContainer .infoListContent li a .countContainer {
   float: right;
 }
 .infoBubbleContainer .infoList .infoListContainer .infoListContent li a:hover {

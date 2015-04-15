@@ -16,9 +16,11 @@ define (require)->
     null
 
   SearchPanel.prototype =
-    init: (myemail)->
+    init: (myaccount)->
       this.all.hide()
-      this.all.data('myemail', myemail)
+      this.all.data('myid', myaccount._id)
+      this.all.data('myemail', myaccount.email)
+      this.all.data('mynick', myaccount.nick)
       this.addEvent()
     addEvent: ()->
       that = this
@@ -52,6 +54,7 @@ define (require)->
               console.log(data.err)
             else
               that.heading.html('查找结果')
+              console.log data.result
               that.addUserList(data.result)
               that.inputForm.hide()
               that.searchResult.show()
@@ -66,18 +69,17 @@ define (require)->
         cls = classes[i%2]
         that.addUserItem(user, cls)
       $('.searchPanelContainer .findItem .addFriendBtn').click ()->
-        myemail = that.all.data('myemail')
-        femail = $(this).prev('.info').find('.email').html()
-        
-        if myemail == femail
+        myid = that.all.data('myid')
+        fid = $(this).prev('.info').find('.id').html()
+        if myid == fid
           alert '不可添加自己为好友'
           return
 
         $.ajax
           type: 'POST'
           data:
-            myemail: myemail
-            femail: femail
+            myid: myid
+            fid: fid
           url: '/api/isFriend'
           dataType: 'json'
           success: (data)->
@@ -85,24 +87,9 @@ define (require)->
               console.log data.err
             else
               if !data.result
-                that.socket.emit 'req add friend', {from: myemail, to: femail}
-                # $.ajax
-                #   type: 'POST'
-                #   data:
-                #     myemail: myemail
-                #     femail: femail
-                #   url: '/api/addFriend'
-                #   dataType: 'json'
-                #   success: (data1)->
-                #     if !data1.flag 
-                #       console.log data1.err 
-                #     else
-                #       console.log data1.result
-                #       alert '添加好友', femail, '成功'
-                #   error: (err)->
-                #     console.log err
+                that.socket.emit 'req add friend', {from: {id: myid, nick: that.all.data('mynick'), email: that.all.data('myemail')}, to: fid}
               else
-                alert femail, ' 已经是你的好友了，不需添加好友关系'
+                alert fid, ' 已经是你的好友了，不需添加好友关系'
           error: (err)->
             console.log err
         null
@@ -112,6 +99,8 @@ define (require)->
         userItem.nick
         '</div><div class="second"><span>在线：</span><span class="isOnline">是</span></div><div class="second"><span>邮箱：</span><span class="email">'
         userItem.email
+        '</span><span class="id hidden">'
+        userItem._id
         '</span></div></div><div class="btn addFriendBtn">加为好友</div></div>'
       ]
       item = array.join('')

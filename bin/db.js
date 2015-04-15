@@ -83,6 +83,12 @@
     }, '-pw', callback);
   };
 
+  exports.getAccountById = function(_id, callback) {
+    return Account.findOne({
+      _id: _id
+    }, '-pw', callback);
+  };
+
   exports.getAccountsByEmailAndNick = function(_email, _nick, callback) {
     return Account.find({
       email: new RegExp(_email, 'gi'),
@@ -101,26 +107,26 @@
     return instance;
   };
 
-  exports.getFriendsEmail = function(myemail, callback) {
+  exports.getFriendsId = function(myid, callback) {
     return Account.findOne({
-      email: myemail
+      _id: myid
     }, 'friends', callback);
   };
 
-  exports.getFriends = function(FEmails, callback) {
+  exports.getFriends = function(FIds, callback) {
     return Account.find({
-      email: {
-        $in: FEmails
+      _id: {
+        $in: FIds
       }
     }, '-pw', callback);
   };
 
-  exports.addFriend = function(myemail, femial, callback) {
+  exports.addFriend = function(myid, fid, callback) {
     return Account.findOne({
-      email: myemail
+      _id: myid
     }, function(err, doc) {
       if (!err) {
-        return doc.friends.push(femial);
+        return doc.friends.push(fid);
       }
     });
   };

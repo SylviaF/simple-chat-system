@@ -40,6 +40,8 @@ exports.getPwByEmail = (_email, callback)->
   Account.findOne {email: _email}, 'pw', callback
 exports.getAccountByEmail = (_email, callback)->
   Account.findOne {email: _email}, '-pw', callback
+exports.getAccountById = (_id, callback)->
+  Account.findOne {_id: _id}, '-pw', callback
 exports.getAccountsByEmailAndNick  = (_email, _nick, callback)->
   Account.find {email: new RegExp(_email, 'gi'), nick: new RegExp(_nick, 'gi')}, callback
 exports.getAllAccouts = (callback)->
@@ -53,11 +55,11 @@ exports.addAcounts = (_account, callback)->
 #   tmp = '(' + emails.join('|') + ')'
 #   regExp = new RegExp(tmp)
 #   Account.find {email: regExp}, callback
-exports.getFriendsEmail = (myemail, callback)->
-  Account.findOne {email: myemail}, 'friends', callback
-exports.getFriends = (FEmails, callback)->
-  Account.find {email: { $in:FEmails}}, '-pw', callback
-exports.addFriend = (myemail, femial, callback)->
-  Account.findOne {email: myemail}, (err, doc)->
+exports.getFriendsId = (myid, callback)->
+  Account.findOne {_id: myid}, 'friends', callback
+exports.getFriends = (FIds, callback)->
+  Account.find {_id: { $in:FIds}}, '-pw', callback
+exports.addFriend = (myid, fid, callback)->
+  Account.findOne {_id: myid}, (err, doc)->
     if !err 
-      doc.friends.push(femial)
+      doc.friends.push(fid)

@@ -12,22 +12,20 @@
       var client;
       client = {};
       socket.on('online user', function(data) {
+        client.id = data.id;
         client.email = data.email;
         client.nick = data.nick;
-        console.log("data: ", data);
-        console.log("client: ", client);
-        onlineUsers[data.email] = socket;
+        onlineUsers[client.id] = socket;
         return console.log("onlineUsers: ", onlineUsers);
       });
       socket.on('req add friend', function(data) {
-        console.log(data.from, ' want to be a friend with ', data.to);
         if (onlineUsers[data.to]) {
           onlineUsers[data.to].emit('req ' + data.to, data.from);
-          return onlineUsers[data.from].on('reply ' + data.from, function(data) {
+          return onlineUsers[data.from.id].on('reply ' + data.from, function(data) {
             if (!data) {
-              return console.log(data.to, ' refuse being a friend with ', data.from);
+              return console.log(data.to, ' refuse being a friend with ', data.from.id);
             } else {
-              return console.log(data.to, ' accept being a friend with ', data.from);
+              return console.log(data.to, ' accept being a friend with ', data.from.id);
             }
           });
         } else {
@@ -35,8 +33,8 @@
         }
       });
       return socket.on('disconnect', function() {
-        if (client && client.email) {
-          onlineUsers[client.email] = null;
+        if (client && client.id) {
+          onlineUsers[client.id] = null;
         }
         return console.log(client.nick, ' disconnect');
       });

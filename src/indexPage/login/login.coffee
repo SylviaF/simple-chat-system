@@ -14,7 +14,7 @@ define ["mainApp"], (MainApp)->
     null
 
   LoginPanel.prototype =
-    init: (socket)->
+    init: ()->
       console.log(this)
       this.addEvent()
     addEvent: ()->
@@ -46,14 +46,14 @@ define ["mainApp"], (MainApp)->
                 else
                   # 匹配成功
                   that.islogin = true
-                  that.socket.emit 'online user', {email: data.result.email, nick: data.result.nick}
+                  that.socket.emit 'online user', {id: data.result._id, email: data.result.email, nick: data.result.nick}
                   # that.mainApp.init(data.result)
                   # that.mainApp.show()
                   console.log data.result
                   $.ajax
                     type: 'POST'
                     data: 
-                      emails: data.result.friends
+                      ids: data.result.friends
                     url: '/api/getFriends'
                     dataType: 'json'
                     success: (data1)->

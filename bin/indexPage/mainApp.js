@@ -16,8 +16,8 @@
         this.addFriends(friends);
         this.all.data('myemail', myaccount.email);
         this.appMainNick.html(myaccount.nick);
-        this.searchPanel.init(myaccount.email);
-        this.infoBubble.init(myaccount.email);
+        this.searchPanel.init(myaccount);
+        this.infoBubble.init(myaccount._id);
         return this.addEvent();
       },
       addEvent: function() {
@@ -45,7 +45,7 @@
       },
       addFriendItem: function(faccount, recentMsg) {
         var array, item;
-        array = ['<div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"><div class="finfo"><div class="femail hidden">', faccount.email, '</div><div class="fnick">', faccount.nick, '</div><div class="recentMsg">', recentMsg, '</div></div></div>'];
+        array = ['<div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"><div class="finfo"><div class="fid hidden">', faccount._id, '</div><div class="fnick">', faccount.nick, '</div><div class="recentMsg">', recentMsg, '</div></div></div>'];
         item = array.join('');
         return this.searchResult.append(item);
       }
