@@ -110,7 +110,7 @@
                     to: fid
                   });
                 } else {
-                  return alert(fid, ' 已经是你的好友了，不需添加好友关系');
+                  return alert([that.all.data('mynick'), '已经是你的好友了，不需添加好友关系'].join(''));
                 }
               }
             },

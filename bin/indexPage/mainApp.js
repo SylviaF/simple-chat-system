@@ -17,7 +17,7 @@
         this.all.data('myemail', myaccount.email);
         this.appMainNick.html(myaccount.nick);
         this.searchPanel.init(myaccount);
-        this.infoBubble.init(myaccount._id);
+        this.infoBubble.init(myaccount);
         return this.addEvent();
       },
       addEvent: function() {
@@ -39,7 +39,8 @@
         _results = [];
         for (i = _i = 0, _len = faccounts.length; _i < _len; i = ++_i) {
           faccount = faccounts[i];
-          _results.push(addFriendItem(faccount, 'hi'));
+          this.addFriendItem(faccount, 'hi');
+          _results.push(null);
         }
         return _results;
       },
@@ -47,7 +48,7 @@
         var array, item;
         array = ['<div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"><div class="finfo"><div class="fid hidden">', faccount._id, '</div><div class="fnick">', faccount.nick, '</div><div class="recentMsg">', recentMsg, '</div></div></div>'];
         item = array.join('');
-        return this.searchResult.append(item);
+        return this.appMainFriends.append(item);
       }
     };
     return exports = MainApp;

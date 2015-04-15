@@ -125,7 +125,8 @@
   });
 
   router.post('/api/getFriends', function(req, res, next) {
-    return db.getFriends(req.body.ids, function(err, result) {
+    console.log("req.body.ids: ", req.body.ids);
+    return db.getFriends(req.body.ids.split('&'), function(err, result) {
       if (err) {
         return res.json({
           'flag': false,
@@ -166,31 +167,6 @@
             'result': true
           });
         }
-      }
-    });
-  });
-
-  router.post('/api/addFriend', function(req, res, next) {
-    return db.addFriend(req.body.myid, req.body.fid, function(err, result) {
-      if (err) {
-        return res.json({
-          'flag': false,
-          'err': err
-        });
-      } else {
-        return db.getAccountById(req.body.fid, function(err, result) {
-          if (err) {
-            return res.json({
-              'flag': false,
-              'err': err
-            });
-          } else {
-            return res.json({
-              'flag': true,
-              'result': result
-            });
-          }
-        });
       }
     });
   });

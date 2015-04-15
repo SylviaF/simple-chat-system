@@ -15,7 +15,7 @@ define ['searchPanel', 'infoBubble'], (SearchPanel, InfoBubble)->
       this.all.data('myemail', myaccount.email)
       this.appMainNick.html(myaccount.nick)
       this.searchPanel.init(myaccount)
-      this.infoBubble.init(myaccount._id)
+      this.infoBubble.init(myaccount)
       this.addEvent()
     addEvent: ()->
       that = this
@@ -28,7 +28,8 @@ define ['searchPanel', 'infoBubble'], (SearchPanel, InfoBubble)->
     addFriends: (faccounts)->
       this.appMainFriends.html('')
       for faccount, i in faccounts
-        addFriendItem(faccount, 'hi')
+        this.addFriendItem(faccount, 'hi')
+        null
     addFriendItem: (faccount, recentMsg)->
       array = [
         '<div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"><div class="finfo"><div class="fid hidden">'
@@ -40,6 +41,6 @@ define ['searchPanel', 'infoBubble'], (SearchPanel, InfoBubble)->
         '</div></div></div>'
       ]
       item = array.join('')
-      this.searchResult.append(item)
+      this.appMainFriends.append(item)
 
   exports = MainApp

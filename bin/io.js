@@ -2,8 +2,9 @@
   var IO;
 
   IO = function(server) {
-    var io, onlineUsers;
+    var db, io, onlineUsers;
     io = require('socket.io');
+    db = require('./db');
     io = io.listen(server, {
       log: false
     });
@@ -15,21 +16,27 @@
         client.id = data.id;
         client.email = data.email;
         client.nick = data.nick;
-        onlineUsers[client.id] = socket;
-        return console.log("onlineUsers: ", onlineUsers);
+        return onlineUsers[client.id] = socket;
       });
       socket.on('req add friend', function(data) {
         if (onlineUsers[data.to]) {
-          onlineUsers[data.to].emit('req ' + data.to, data.from);
-          return onlineUsers[data.from.id].on('reply ' + data.from, function(data) {
-            if (!data) {
-              return console.log(data.to, ' refuse being a friend with ', data.from.id);
-            } else {
-              return console.log(data.to, ' accept being a friend with ', data.from.id);
-            }
-          });
+          return onlineUsers[data.to].emit('req ' + data.to, data.from);
         } else {
           return console.log(data.to, ' is not online');
+        }
+      });
+      socket.on('rep add friend', function(data) {
+        if (onlineUsers[data.to]) {
+          onlineUsers[data.to].emit('reply ' + data.to, data.from, data.reply);
+        } else {
+          console.log(data.to, ' is not online');
+        }
+        if (data.reply) {
+          return db.addFriend(data.to, data.from.id, function(flag) {
+            if (flag) {
+              return console.log('successly add friend');
+            }
+          });
         }
       });
       return socket.on('disconnect', function() {

@@ -38,6 +38,7 @@ define ["mainApp"], (MainApp)->
                 email: that.accountIpt.val()
                 pw: that.pwIpt.val()
               }
+              traditional: true
               url: '/api/login'
               dataType: 'json'
               success: (data)->
@@ -49,11 +50,12 @@ define ["mainApp"], (MainApp)->
                   that.socket.emit 'online user', {id: data.result._id, email: data.result.email, nick: data.result.nick}
                   # that.mainApp.init(data.result)
                   # that.mainApp.show()
-                  console.log data.result
+                  console.log data.result.friends
                   $.ajax
                     type: 'POST'
-                    data: 
-                      ids: data.result.friends
+                    data:{
+                      ids: data.result.friends.join('&')
+                    } 
                     url: '/api/getFriends'
                     dataType: 'json'
                     success: (data1)->

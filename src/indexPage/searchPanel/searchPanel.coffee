@@ -89,7 +89,7 @@ define (require)->
               if !data.result
                 that.socket.emit 'req add friend', {from: {id: myid, nick: that.all.data('mynick'), email: that.all.data('myemail')}, to: fid}
               else
-                alert fid, ' 已经是你的好友了，不需添加好友关系'
+                alert [that.all.data('mynick'), '已经是你的好友了，不需添加好友关系'].join('')
           error: (err)->
             console.log err
         null

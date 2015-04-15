@@ -37,6 +37,7 @@
                 email: that.accountIpt.val(),
                 pw: that.pwIpt.val()
               },
+              traditional: true,
               url: '/api/login',
               dataType: 'json',
               success: function(data) {
@@ -49,11 +50,11 @@
                     email: data.result.email,
                     nick: data.result.nick
                   });
-                  console.log(data.result);
+                  console.log(data.result.friends);
                   $.ajax({
                     type: 'POST',
                     data: {
-                      ids: data.result.friends
+                      ids: data.result.friends.join('&')
                     },
                     url: '/api/getFriends',
                     dataType: 'json',

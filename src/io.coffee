@@ -1,5 +1,6 @@
 IO = (server)->
   io = require('socket.io')
+  db = require('./db')
   io = io.listen(server, { log: false })
   onlineUsers = {}
   io.sockets.on 'connection', (socket)->
@@ -12,18 +13,24 @@ IO = (server)->
       # console.log "data: ", data
       # console.log "client: ", client
       onlineUsers[client.id] = socket
-      console.log "onlineUsers: ", onlineUsers
+      # console.log "onlineUsers: ", onlineUsers
 
     socket.on 'req add friend', (data)->
       if onlineUsers[data.to]
         onlineUsers[data.to].emit 'req ' + data.to, data.from
-        onlineUsers[data.from.id].on 'reply ' + data.from, (data)->
-          if !data
-            console.log data.to, ' refuse being a friend with ', data.from.id
-          else
-            console.log data.to, ' accept being a friend with ', data.from.id
       else
         console.log data.to, ' is not online'
+
+    socket.on 'rep add friend', (data)->
+      if onlineUsers[data.to]
+        onlineUsers[data.to].emit 'reply ' + data.to, data.from, data.reply
+      else
+        console.log data.to, ' is not online'
+
+      if data.reply
+        db.addFriend data.to, data.from.id, (flag)->
+          if flag
+            console.log ('successly add friend')
       
     socket.on 'disconnect', ()->
       if client && client.id

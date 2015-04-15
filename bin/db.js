@@ -114,6 +114,7 @@
   };
 
   exports.getFriends = function(FIds, callback) {
+    console.log('FIds: ', FIds);
     return Account.find({
       _id: {
         $in: FIds
@@ -124,10 +125,21 @@
   exports.addFriend = function(myid, fid, callback) {
     return Account.findOne({
       _id: myid
-    }, function(err, doc) {
+    }, function(err, doc1) {
       if (!err) {
-        return doc.friends.push(fid);
+        Account.findOne({
+          _id: fid
+        }, function(err, doc2) {
+          if (!err) {
+            doc1.friends.push(fid);
+            doc1.save();
+            doc2.friends.push(myid);
+            doc2.save();
+            return callback(true);
+          }
+        });
       }
+      return callback(false);
     });
   };
 
