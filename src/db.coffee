@@ -58,7 +58,6 @@ exports.addAcounts = (_account, callback)->
 exports.getFriendsId = (myid, callback)->
   Account.findOne {_id: myid}, 'friends', callback
 exports.getFriends = (FIds, callback)->
-  console.log 'FIds: ', FIds
   Account.find {_id: { $in:FIds}}, '-pw', callback
 exports.addFriend = (myid, fid, callback)->
   Account.findOne {_id: myid}, (err, doc1)->

@@ -50,7 +50,6 @@ define ["mainApp"], (MainApp)->
                   that.socket.emit 'online user', {id: data.result._id, email: data.result.email, nick: data.result.nick}
                   # that.mainApp.init(data.result)
                   # that.mainApp.show()
-                  console.log data.result.friends
                   $.ajax
                     type: 'POST'
                     data:{

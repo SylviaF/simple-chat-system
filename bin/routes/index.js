@@ -125,7 +125,6 @@
   });
 
   router.post('/api/getFriends', function(req, res, next) {
-    console.log("req.body.ids: ", req.body.ids);
     return db.getFriends(req.body.ids.split('&'), function(err, result) {
       if (err) {
         return res.json({

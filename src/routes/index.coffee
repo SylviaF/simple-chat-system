@@ -60,7 +60,6 @@ router.post '/api/getAccouts', (req, res, next)->
 
 # 用于appMain拿到好友信息
 router.post '/api/getFriends', (req, res, next)->
-  console.log "req.body.ids: ", req.body.ids
   db.getFriends req.body.ids.split('&'), (err, result)->
     if err 
       res.json {'flag': false, 'err': err}

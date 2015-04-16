@@ -114,7 +114,6 @@
   };
 
   exports.getFriends = function(FIds, callback) {
-    console.log('FIds: ', FIds);
     return Account.find({
       _id: {
         $in: FIds

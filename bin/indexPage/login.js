@@ -50,7 +50,6 @@
                     email: data.result.email,
                     nick: data.result.nick
                   });
-                  console.log(data.result.friends);
                   $.ajax({
                     type: 'POST',
                     data: {
