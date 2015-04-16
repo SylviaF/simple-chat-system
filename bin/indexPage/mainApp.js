@@ -7,7 +7,7 @@
       this.appMainFriends = $('.appMainContainer .tabContentInner');
       this.infoBubble = new InfoBubble(socket);
       this.searchPanel = new SearchPanel(socket);
-      this.chatBoxs = [];
+      this.chatBoxs = {};
       this.searchFriendBtn = $('.appMainContainer #searchFriend');
       this.socket = socket;
       return null;
@@ -26,6 +26,13 @@
       addEvent: function() {
         var that;
         that = this;
+        that.socket.on('isOnline', function(id, isOnline) {
+          if (isOnline) {
+            return that.appMainFriends.find('#' + id + 'favatar').removeClass('gray');
+          } else {
+            return that.appMainFriends.find('#' + id + 'favatar').addClass('gray');
+          }
+        });
         return that.searchFriendBtn.click(function() {
           return that.searchPanel.show();
         });
@@ -37,27 +44,24 @@
         return this.all.hide();
       },
       addFriends: function(faccounts) {
-        var faccount, i, _i, _len, _results;
+        var chatBox, faccount, i, _i, _len;
         this.appMainFriends.html('');
-        _results = [];
         for (i = _i = 0, _len = faccounts.length; _i < _len; i = ++_i) {
           faccount = faccounts[i];
-          _results.push(this.addFriendItem(faccount, 'hi'));
+          this.addFriendItem(faccount, 'hi');
+          chatBox = new ChatBox(this.socket, faccount);
+          chatBox.init(this.myaccount);
+          this.chatBoxs[faccount._id] = chatBox;
         }
-        return _results;
+        return console.log(this.chatBoxs);
       },
       addFriendItem: function(faccount, recentMsg) {
         var array, item, that;
-        array = ['<div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"><div class="finfo"><div class="fid hidden">', faccount._id, '</div><div class="fnick">', faccount.nick, '</div><div class="recentMsg">', recentMsg, '</div></div></div>'];
+        array = ['<div class="friendLine"><img id="', [faccount._id, 'favatar'].join(''), '" src="../images/defaultUserAvatar.png" class="favatar', faccount.isOnline ? '' : ' gray', '"><div class="finfo"><div class="fid hidden">', faccount._id, '</div><div class="fnick">', faccount.nick, '</div><div class="recentMsg">', recentMsg, '</div></div></div>'];
         item = $(array.join(''));
         that = this;
         item.click(function() {
-          var chatBox;
-          chatBox = new ChatBox(that.socket, faccount);
-          chatBox.init(that.myaccount);
-          chatBox.show();
-          console.log(chatBox);
-          return that.chatBoxs.push(chatBox);
+          return that.chatBoxs[faccount._id].show();
         });
         return this.appMainFriends.append(item);
       }

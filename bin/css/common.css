@@ -45,3 +45,9 @@ a {
 .hidden {
   display: none;
 }
+img.gray {
+  -webkit-filter: grayscale(100%);
+  -webkit-filter: grayscale(1);
+  filter: grayscale(100%);
+  filter: gray;
+}

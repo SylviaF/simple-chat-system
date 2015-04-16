@@ -19,9 +19,7 @@
     SearchPanel.prototype = {
       init: function(myaccount) {
         this.all.hide();
-        this.all.data('myid', myaccount._id);
-        this.all.data('myemail', myaccount.email);
-        this.all.data('mynick', myaccount.nick);
+        this.myaccount = myaccount;
         return this.addEvent();
       },
       addEvent: function() {
@@ -82,7 +80,7 @@
         }
         return $('.searchPanelContainer .findItem .addFriendBtn').click(function() {
           var fid, myid;
-          myid = that.all.data('myid');
+          myid = that.myaccount._id;
           fid = $(this).prev('.info').find('.id').html();
           if (myid === fid) {
             alert('不可添加自己为好友');
@@ -104,13 +102,13 @@
                   return that.socket.emit('req add friend', {
                     from: {
                       id: myid,
-                      nick: that.all.data('mynick'),
-                      email: that.all.data('myemail')
+                      nick: that.myaccount.nick,
+                      email: that.myaccount.email
                     },
                     to: fid
                   });
                 } else {
-                  return alert([that.all.data('mynick'), '已经是你的好友了，不需添加好友关系'].join(''));
+                  return alert([that.myaccount.nick, '已经是你的好友了，不需添加好友关系'].join(''));
                 }
               }
             },
@@ -123,7 +121,7 @@
       },
       addUserItem: function(userItem, classname) {
         var array, item;
-        array = ['<div class="findItem ' + classname + '"><div class="info"><div class="nick">', userItem.nick, '</div><div class="second"><span>在线：</span><span class="isOnline">是</span></div><div class="second"><span>邮箱：</span><span class="email">', userItem.email, '</span><span class="id hidden">', userItem._id, '</span></div></div><div class="btn addFriendBtn">加为好友</div></div>'];
+        array = ['<div class="findItem ' + classname + '"><div class="info"><div class="nick">', userItem.nick, '</div><div class="second"><span>在线：</span><span class="isOnline">', userItem.isOnline ? '是' : '否', '</span></div><div class="second"><span>邮箱：</span><span class="email">', userItem.email, '</span><span class="id hidden">', userItem._id, '</span></div></div><div class="btn addFriendBtn">加为好友</div></div>'];
         item = array.join('');
         return this.searchResult.append(item);
       },

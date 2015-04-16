@@ -26,8 +26,8 @@
           'flag': false,
           'err': err
         });
-      } else if (result.length) {
-        console.log('result:', result.length);
+      } else if (result) {
+        console.log('result:', result);
         return res.json({
           'flag': false,
           'err': '邮箱已注册过，您可以直接登录或者换邮箱注册'

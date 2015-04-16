@@ -6,8 +6,9 @@
       this.recentCount = $('.infoBubbleContainer .bubblePanel .count');
       this.infoAllCount = $('.infoBubbleContainer .infoTitle .count');
       this.infoListContent = $('.infoBubbleContainer .infoListContent ul');
+      this.cancelNotifyBtn = $('.infoBubbleContainer .cancelNotifyBtn');
+      this.viewAllBtn = $('.infoBubbleContainer .viewAllBtn');
       this.infoFroms = {};
-      this.infoList = [];
       this.myid = null;
       this.mynick = null;
       this.socket = socket;
@@ -26,7 +27,7 @@
           console.log('receive a request to make friend from ', data.nick);
           return that.addInfoItem(data, '请求添加好友', 1);
         });
-        return that.socket.on('reply ' + that.myid, function(from, reply) {
+        that.socket.on('reply ' + that.myid, function(from, reply) {
           if (!reply) {
             console.log(from.nick, ' refuse being a friend with you');
             return that.addInfoItem(from, '拒绝添加你为好友', 2);
@@ -35,9 +36,28 @@
             return that.addInfoItem(from, '已经添加你为好友', 2);
           }
         });
+        that.socket.on('single chat ' + that.myid, function(from, msg, time) {
+          return that.addInfoItem(from, msg, 3);
+        });
+        that.cancelNotifyBtn.click(function() {
+          return that.clearNotice();
+        });
+        return that.viewAllBtn.click(function() {
+          return that.clearNotice();
+        });
+      },
+      clearNotice: function() {
+        this.recentMsg.html('系统：暂无消息');
+        this.recentCount.html(0);
+        this.infoAllCount.html(0);
+        this.infoListContent.html('');
+        return this.infoFroms = {};
       },
       addInfoItem: function(from, msg, type) {
         var info, infoTmp, j, that;
+        if (!from.id) {
+          from.id = from._id;
+        }
         if (this.infoFroms[from.id]) {
           this.infoFroms[from.id] += 1;
           info = this.infoListContent.find(['#', from.id].join(''));
@@ -63,6 +83,9 @@
           }
           if (type === 2) {
             alert([from.nick, msg].join(''));
+          }
+          if (type === 3) {
+            $(['#', from.id, 'ChatBox'].join('')).show();
           }
           next = info.next('li');
           if (next.length) {

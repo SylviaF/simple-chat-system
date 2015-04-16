@@ -14,8 +14,8 @@ router.post '/api/checkEmailExist', (req, res, next)->
   db.checkEmailExist req.body.email, (err, result)->
     if err
       res.json {'flag':false,'err': err}
-    else if result.length
-      console.log 'result:', result.length
+    else if result
+      console.log 'result:', result
       res.json {'flag': false, 'err': '邮箱已注册过，您可以直接登录或者换邮箱注册'}
     else
       newAccount = db.addAcounts req.body, (err)->

@@ -6,8 +6,9 @@ define (require)->
     this.recentCount = $('.infoBubbleContainer .bubblePanel .count')
     this.infoAllCount = $('.infoBubbleContainer .infoTitle .count')
     this.infoListContent = $('.infoBubbleContainer .infoListContent ul')
+    this.cancelNotifyBtn = $('.infoBubbleContainer .cancelNotifyBtn')
+    this.viewAllBtn = $('.infoBubbleContainer .viewAllBtn')
     this.infoFroms = {}
-    this.infoList = []
     this.myid = null
     this.mynick = null
     this.socket = socket
@@ -35,8 +36,25 @@ define (require)->
           console.log from.nick, ' accept being a friend with you'
           that.addInfoItem(from, '已经添加你为好友', 2)
 
+      that.socket.on 'single chat '+ that.myid, (from, msg, time)->
+        that.addInfoItem(from, msg, 3)
+
+      that.cancelNotifyBtn.click ()->
+        that.clearNotice()
+      that.viewAllBtn.click ()->
+        that.clearNotice()
+
+    clearNotice: ()->
+      this.recentMsg.html('系统：暂无消息')
+      this.recentCount.html(0)
+      this.infoAllCount.html(0)
+      this.infoListContent.html('')
+      this.infoFroms = {}
+
     # type: 1-请求加好友，2-回应加好友，3-单聊
     addInfoItem: (from, msg, type)->
+      if !from.id
+        from.id = from._id
       if this.infoFroms[from.id]
         this.infoFroms[from.id] += 1
         info = this.infoListContent.find(['#', from.id].join(''))
@@ -65,7 +83,9 @@ define (require)->
           that.socket.emit 'rep add friend', {from: {id: that.myid, nick: that.mynick}, to:from.id, reply: rpl}
         if (type == 2)
           alert [from.nick, msg].join('')
-        
+        if (type == 3)
+          $(['#', from.id, 'ChatBox'].join('')).show()
+
         next = info.next('li') 
         if (next.length)
           that.recentMsg.html(next.find('.nick').html() + '：' + next.find('.msg').html())
@@ -73,6 +93,7 @@ define (require)->
         else
           that.recentMsg.html('系统：暂无消息')
           that.recentCount.html(0)
+
         that.infoAllCount.html(parseInt(that.infoAllCount.html()) - that.infoFroms[from.id])
         that.infoFroms[from.id] = 0
         this.remove()

@@ -19,6 +19,11 @@ define ["mainApp"], (MainApp)->
       this.addEvent()
     addEvent: ()->
       that = this
+
+      that.socket.on 'more log at once', (data)->
+        that.islogin = false
+        alert [data.nick, '已经登录了，不能再次登录'].join('')
+
       # 点击关闭按钮
       that.closeBtn.click(
         ()->
@@ -58,13 +63,13 @@ define ["mainApp"], (MainApp)->
                     url: '/api/getFriends'
                     dataType: 'json'
                     success: (data1)->
-                      console.log 'friends: ', data1
-                      if !data1.flag
-                        that.mainApp.init(data.result, [])
-                        that.mainApp.show()
-                      else
-                        that.mainApp.init(data.result, data1.result)
-                        that.mainApp.show()
+                      if that.islogin
+                        if !data1.flag
+                          that.mainApp.init(data.result, [])
+                          that.mainApp.show()
+                        else
+                          that.mainApp.init(data.result, data1.result)
+                          that.mainApp.show()
                     error: (err)->
                       console.log err
                   that.hide()

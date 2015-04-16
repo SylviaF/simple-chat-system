@@ -18,9 +18,7 @@ define (require)->
   SearchPanel.prototype =
     init: (myaccount)->
       this.all.hide()
-      this.all.data('myid', myaccount._id)
-      this.all.data('myemail', myaccount.email)
-      this.all.data('mynick', myaccount.nick)
+      this.myaccount = myaccount
       this.addEvent()
     addEvent: ()->
       that = this
@@ -69,7 +67,7 @@ define (require)->
         cls = classes[i%2]
         that.addUserItem(user, cls)
       $('.searchPanelContainer .findItem .addFriendBtn').click ()->
-        myid = that.all.data('myid')
+        myid = that.myaccount._id
         fid = $(this).prev('.info').find('.id').html()
         if myid == fid
           alert '不可添加自己为好友'
@@ -87,9 +85,9 @@ define (require)->
               console.log data.err
             else
               if !data.result
-                that.socket.emit 'req add friend', {from: {id: myid, nick: that.all.data('mynick'), email: that.all.data('myemail')}, to: fid}
+                that.socket.emit 'req add friend', {from: {id: myid, nick: that.myaccount.nick, email: that.myaccount.email}, to: fid}
               else
-                alert [that.all.data('mynick'), '已经是你的好友了，不需添加好友关系'].join('')
+                alert [that.myaccount.nick, '已经是你的好友了，不需添加好友关系'].join('')
           error: (err)->
             console.log err
         null
@@ -97,7 +95,9 @@ define (require)->
       array = [
         '<div class="findItem '+classname+'"><div class="info"><div class="nick">'
         userItem.nick
-        '</div><div class="second"><span>在线：</span><span class="isOnline">是</span></div><div class="second"><span>邮箱：</span><span class="email">'
+        '</div><div class="second"><span>在线：</span><span class="isOnline">'
+        if userItem.isOnline then '是' else '否'
+        '</span></div><div class="second"><span>邮箱：</span><span class="email">'
         userItem.email
         '</span><span class="id hidden">'
         userItem._id

@@ -16,7 +16,12 @@
         client.id = data.id;
         client.email = data.email;
         client.nick = data.nick;
-        return onlineUsers[client.id] = socket;
+        if (onlineUsers[client.id]) {
+          socket.emit('more log at once', client);
+        }
+        onlineUsers[client.id] = socket;
+        socket.broadcast.emit('isOnline', client.id, true);
+        return db.setIsOnline(client.id, true);
       });
       socket.on('req add friend', function(data) {
         if (onlineUsers[data.to]) {
@@ -39,10 +44,19 @@
           });
         }
       });
+      socket.on('single chat', function(data) {
+        if (onlineUsers[data.to]) {
+          return onlineUsers[data.to].emit('single chat ' + data.to, data.from, data.msg, data.time);
+        } else {
+          return console.log(data.to, ' is not online');
+        }
+      });
       return socket.on('disconnect', function() {
         if (client && client.id) {
           onlineUsers[client.id] = null;
         }
+        socket.broadcast.emit('isOnline', client.id, false);
+        db.setIsOnline(client.id, false);
         return console.log(client.nick, ' disconnect');
       });
     });

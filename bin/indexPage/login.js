@@ -22,6 +22,10 @@
       addEvent: function() {
         var that;
         that = this;
+        that.socket.on('more log at once', function(data) {
+          that.islogin = false;
+          return alert([data.nick, '已经登录了，不能再次登录'].join(''));
+        });
         that.closeBtn.click(function() {
           return that.hide();
         });
@@ -58,13 +62,14 @@
                     url: '/api/getFriends',
                     dataType: 'json',
                     success: function(data1) {
-                      console.log('friends: ', data1);
-                      if (!data1.flag) {
-                        that.mainApp.init(data.result, []);
-                        return that.mainApp.show();
-                      } else {
-                        that.mainApp.init(data.result, data1.result);
-                        return that.mainApp.show();
+                      if (that.islogin) {
+                        if (!data1.flag) {
+                          that.mainApp.init(data.result, []);
+                          return that.mainApp.show();
+                        } else {
+                          that.mainApp.init(data.result, data1.result);
+                          return that.mainApp.show();
+                        }
                       }
                     },
                     error: function(err) {

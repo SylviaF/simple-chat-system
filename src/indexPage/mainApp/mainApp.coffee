@@ -5,7 +5,7 @@ define ['searchPanel', 'infoBubble', 'chatBox'], (SearchPanel, InfoBubble, ChatB
     this.appMainFriends = $('.appMainContainer .tabContentInner')
     this.infoBubble = new InfoBubble(socket)
     this.searchPanel = new SearchPanel(socket)
-    this.chatBoxs = []
+    this.chatBoxs = {}
     this.searchFriendBtn = $ '.appMainContainer #searchFriend'
     this.socket = socket
     null
@@ -23,6 +23,13 @@ define ['searchPanel', 'infoBubble', 'chatBox'], (SearchPanel, InfoBubble, ChatB
       this.addEvent()
     addEvent: ()->
       that = this
+
+      that.socket.on 'isOnline', (id, isOnline)->
+        if isOnline
+          that.appMainFriends.find('#'+id+'favatar').removeClass('gray')
+        else
+          that.appMainFriends.find('#'+id+'favatar').addClass('gray')
+
       that.searchFriendBtn.click ()->
         that.searchPanel.show()
     show: ()->
@@ -33,10 +40,19 @@ define ['searchPanel', 'infoBubble', 'chatBox'], (SearchPanel, InfoBubble, ChatB
       this.appMainFriends.html('')
       for faccount, i in faccounts
         this.addFriendItem(faccount, 'hi')
+        # 为每个好友创建一个聊天框
+        chatBox = new ChatBox(this.socket, faccount)
+        chatBox.init(this.myaccount)
+        this.chatBoxs[faccount._id] = chatBox
+      console.log this.chatBoxs
       
     addFriendItem: (faccount, recentMsg)->
       array = [
-        '<div class="friendLine"><img src="../images/defaultUserAvatar.png" class="favatar"><div class="finfo"><div class="fid hidden">'
+        '<div class="friendLine"><img id="'
+        [faccount._id, 'favatar'].join('')
+        '" src="../images/defaultUserAvatar.png" class="favatar'
+        if faccount.isOnline then '' else ' gray'
+        '"><div class="finfo"><div class="fid hidden">'
         faccount._id
         '</div><div class="fnick">'
         faccount.nick
@@ -47,11 +63,7 @@ define ['searchPanel', 'infoBubble', 'chatBox'], (SearchPanel, InfoBubble, ChatB
       item = $ array.join('')
       that = this
       item.click ()->
-        chatBox = new ChatBox(that.socket, faccount)
-        chatBox.init(that.myaccount)
-        chatBox.show()
-        console.log chatBox
-        that.chatBoxs.push chatBox
+        that.chatBoxs[faccount._id].show()
       this.appMainFriends.append(item)
 
   exports = MainApp

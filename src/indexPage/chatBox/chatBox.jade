@@ -1,7 +1,7 @@
 // build:css css/chatBox.css
 link(rel='stylesheet', href='chatBox.css')
 // endbuild
-div.chatBox
+div#chatBoxModel
   div.chatTitle
     img.favatar(src="../images/defaultUserAvatar.png")
     div.finfo
@@ -10,8 +10,8 @@ div.chatBox
       a.closeBtn
       a.minBtn
   div.chatContent
-    +msgLine('me')
-    +msgLine('other')
+    //- +msgLine('me')
+    //- +msgLine('other')
   div.chatInputContainer
     div.chatInput(contenteditable="true")
     div.chatBtn

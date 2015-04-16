@@ -107,6 +107,16 @@
     return instance;
   };
 
+  exports.setIsOnline = function(_id, isOnline) {
+    return Account.findOneAndUpdate({
+      _id: _id
+    }, {
+      isOnline: isOnline
+    }, function(err, result) {
+      return console.log(err, result);
+    });
+  };
+
   exports.getFriendsId = function(myid, callback) {
     return Account.findOne({
       _id: myid

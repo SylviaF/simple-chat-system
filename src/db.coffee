@@ -51,6 +51,10 @@ exports.addAcounts = (_account, callback)->
   instance.save callback
   instance
 
+exports.setIsOnline = (_id, isOnline)->
+  Account.findOneAndUpdate {_id: _id}, {isOnline: isOnline}, (err, result)->
+    console.log err, result
+
 # exports.getAccountsByEmails = (emails, callback)->
 #   tmp = '(' + emails.join('|') + ')'
 #   regExp = new RegExp(tmp)
