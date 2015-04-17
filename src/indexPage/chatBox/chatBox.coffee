@@ -19,6 +19,16 @@ define (require)->
       if !this.faccount.isOnline
         this.favatar.addClass 'gray'
       this.myaccount = myaccount
+      # that = this
+      # $.ajax
+      #   type: 'POST'
+      #   data:
+      #     msgs: myaccount.msgs.join('&')
+      #   url: '/api/getMsgs'
+      #   dataType: 'json'
+      #   success: (data)->
+      #     if data.flag
+      #       that.initChatBoxMsg(data.result)
       this.addEvent()
 
     addEvent: ()->
@@ -48,6 +58,11 @@ define (require)->
         else
           alert '请输入要发送的内容'
 
+    initChatBoxMsg: (msgs)->
+      for msg in msgs
+        if msg.type == 3
+          this.addChatItem msg.from, msg.content, msg.time, 1
+
     # type: 0-我发出的，1-我收到的
     addChatItem: (from, msg, time, type)->
       if type == 1 && from._id != this.faccount._id
@@ -66,6 +81,7 @@ define (require)->
       this.chatContent.append tmp.join('')
 
     show: ()->
+      this.socket.emit 'read msg', this.faccount._id, this.myaccount._id
       this.all.show()
     hide:()->
       this.all.hide()

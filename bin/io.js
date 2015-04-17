@@ -27,14 +27,30 @@
         if (onlineUsers[data.to]) {
           return onlineUsers[data.to].emit('req ' + data.to, data.from);
         } else {
-          return console.log(data.to, ' is not online');
+          return db.addMsg({
+            type: 1,
+            from: data.from,
+            to: data.to,
+            content: '请求添加好友'
+          }, function(flag) {
+            return console.log('offline req add friend');
+          });
         }
       });
       socket.on('rep add friend', function(data) {
+        var reply;
         if (onlineUsers[data.to]) {
           onlineUsers[data.to].emit('reply ' + data.to, data.from, data.reply);
         } else {
-          console.log(data.to, ' is not online');
+          reply = data.reply ? '已经添加你为好友' : '拒绝添加你为好友';
+          db.addMsg({
+            type: 2,
+            from: data.from,
+            to: data.to,
+            content: reply
+          }, function(flag) {
+            return console.log('offline rep add friend');
+          });
         }
         if (data.reply) {
           return db.addFriend(data.to, data.from.id, function(flag) {
@@ -44,11 +60,24 @@
           });
         }
       });
+      socket.on('read msg', function(fid, toid) {
+        return db.delMsg(fid, toid, function(flag) {
+          return console.log(flag, ' read msg from ', fid);
+        });
+      });
       socket.on('single chat', function(data) {
         if (onlineUsers[data.to]) {
           return onlineUsers[data.to].emit('single chat ' + data.to, data.from, data.msg, data.time);
         } else {
-          return console.log(data.to, ' is not online');
+          return db.addMsg({
+            type: 3,
+            from: data.from,
+            to: data.to,
+            content: data.msg,
+            time: data.time
+          }, function(flag) {
+            return console.log('offline rep add friend');
+          });
         }
       });
       return socket.on('disconnect', function() {

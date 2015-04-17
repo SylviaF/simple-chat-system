@@ -83,6 +83,15 @@ router.post '/api/isFriend', (req, res, next)->
         res.json {'flag': true, 'result': false}
       else
         res.json {'flag': true, 'result': true}
+
+router.post '/api/getMsgs', (req, res, next)->
+  db.getMsgs req.body.msgs.split('&'), (err, result)->
+    if err 
+      res.json {'flag': false, 'err': err}
+    else if !result
+      res.json {'flag': true, 'result': []}
+    else
+      res.json {'flag': true, 'result': result}
 # router.post '/api/addFriend', (req, res, next)->
 #   db.addFriend req.body.myid, req.body.fid, (err, result)->
 #     if err 

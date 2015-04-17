@@ -170,6 +170,27 @@
     });
   });
 
+  router.post('/api/getMsgs', function(req, res, next) {
+    return db.getMsgs(req.body.msgs.split('&'), function(err, result) {
+      if (err) {
+        return res.json({
+          'flag': false,
+          'err': err
+        });
+      } else if (!result) {
+        return res.json({
+          'flag': true,
+          'result': []
+        });
+      } else {
+        return res.json({
+          'flag': true,
+          'result': result
+        });
+      }
+    });
+  });
+
   module.exports = router;
 
 }).call(this);

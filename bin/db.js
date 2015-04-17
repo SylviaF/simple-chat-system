@@ -1,5 +1,5 @@
 (function() {
-  var Account, Schema, SingleChat, accountSchema, db, mongoose, singleChatSchema;
+  var Account, Msg, Schema, accountSchema, db, mongoose, msgSchema;
 
   mongoose = require('mongoose');
 
@@ -14,10 +14,6 @@
   Schema = mongoose.Schema;
 
   accountSchema = new Schema({
-    uid: {
-      type: Schema.Types.ObjectId,
-      index: true
-    },
     nick: {
       type: String,
       "default": '匿名用户'
@@ -35,35 +31,39 @@
     friends: {
       type: Array,
       "default": []
+    },
+    msgs: {
+      type: Array,
+      "default": []
     }
   });
 
-  singleChatSchema = new Schema({
-    scid: {
+  msgSchema = new Schema({
+    type: {
+      type: Number
+    },
+    from: {
+      type: Object
+    },
+    to: {
       type: Schema.Types.ObjectId
-    },
-    fromid: {
-      type: Number
-    },
-    toid: {
-      type: Number
     },
     content: {
       type: String
     },
-    date: {
-      type: Date,
-      "default": Date.now
+    time: {
+      type: String,
+      "default": ''
     },
-    isRead: {
-      type: Boolean,
-      "default": false
+    count: {
+      type: Number,
+      "default": 1
     }
   });
 
   Account = db.model('Account', accountSchema);
 
-  SingleChat = db.model('SingleChat', singleChatSchema);
+  Msg = db.model('Msg', msgSchema);
 
   exports.checkEmailExist = function(_email, callback) {
     return Account.findOne({
@@ -112,9 +112,7 @@
       _id: _id
     }, {
       isOnline: isOnline
-    }, function(err, result) {
-      return console.log(err, result);
-    });
+    }, function(err, result) {});
   };
 
   exports.getFriendsId = function(myid, callback) {
@@ -147,6 +145,61 @@
             return callback(true);
           }
         });
+      }
+      return callback(false);
+    });
+  };
+
+  exports.addMsg = function(msg, callback) {
+    var instance;
+    instance = new Msg(msg);
+    instance.save(function(err, result) {
+      return Account.findOne({
+        _id: msg.to
+      }, function(err, doc) {
+        if (!err) {
+          doc.msgs.push(result._id);
+          doc.save();
+          return callback(true);
+        }
+      });
+    });
+    callback(false);
+    return instance;
+  };
+
+  exports.getMsgs = function(msgIds, callback) {
+    return Msg.find({
+      _id: {
+        $in: msgIds
+      }
+    }, callback);
+  };
+
+  exports.delMsg = function(fid, toid, callback) {
+    return Msg.find({
+      'from._id': fid,
+      to: toid
+    }, function(err, docs) {
+      var doc1, _i, _len;
+      if (!err) {
+        for (_i = 0, _len = docs.length; _i < _len; _i++) {
+          doc1 = docs[_i];
+          doc1.count -= 1;
+          Account.findOne({
+            _id: toid
+          }, function(err, doc2) {
+            var index;
+            index = doc2.msgs.indexOf(doc1._id);
+            doc2.msgs.splice(index, 1);
+            doc2.save();
+            return callback(true);
+          });
+          if (doc1.count === 0) {
+            doc1.remove();
+          }
+          doc1.save();
+        }
       }
       return callback(false);
     });

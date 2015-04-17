@@ -15,12 +15,35 @@
     MainApp.prototype = {
       myaccount: null,
       init: function(myaccount, friends) {
+        var that;
         this.myaccount = myaccount;
         this.addFriends(friends);
         this.all.data('myemail', myaccount.email);
         this.appMainNick.html(myaccount.nick);
         this.searchPanel.init(myaccount);
         this.infoBubble.init(myaccount);
+        that = this;
+        $.ajax({
+          type: 'POST',
+          data: {
+            msgs: myaccount.msgs.join('&')
+          },
+          url: '/api/getMsgs',
+          dataType: 'json',
+          success: function(data) {
+            var friend, _i, _len, _results;
+            if (data.flag) {
+              that.infoBubble.initInfoList(data.result);
+              that.initNotice(data.result);
+              _results = [];
+              for (_i = 0, _len = friends.length; _i < _len; _i++) {
+                friend = friends[_i];
+                _results.push(that.chatBoxs[friend._id].initChatBoxMsg(data.result));
+              }
+              return _results;
+            }
+          }
+        });
         return this.addEvent();
       },
       addEvent: function() {
@@ -32,6 +55,9 @@
           } else {
             return that.appMainFriends.find('#' + id + 'favatar').addClass('gray');
           }
+        });
+        that.socket.on('single chat ' + that.myaccount._id, function(from, msg, time) {
+          return that.appMainFriends.find(['#mainAppFriends', from._id].join('')).addClass('notice');
         });
         return that.searchFriendBtn.click(function() {
           return that.searchPanel.show();
@@ -57,13 +83,23 @@
       },
       addFriendItem: function(faccount, recentMsg) {
         var array, item, that;
-        array = ['<div class="friendLine"><img id="', [faccount._id, 'favatar'].join(''), '" src="../images/defaultUserAvatar.png" class="favatar', faccount.isOnline ? '' : ' gray', '"><div class="finfo"><div class="fid hidden">', faccount._id, '</div><div class="fnick">', faccount.nick, '</div><div class="recentMsg">', recentMsg, '</div></div></div>'];
+        array = ['<div class="friendLine" id="mainAppFriends', faccount._id, '"><img id="', [faccount._id, 'favatar'].join(''), '" src="../images/defaultUserAvatar.png" class="favatar', faccount.isOnline ? '' : ' gray', '"><div class="finfo"><div class="fid hidden">', faccount._id, '</div><div class="fnick">', faccount.nick, '</div><div class="recentMsg">', recentMsg, '</div></div></div>'];
         item = $(array.join(''));
         that = this;
         item.click(function() {
+          item.removeClass('notice');
           return that.chatBoxs[faccount._id].show();
         });
         return this.appMainFriends.append(item);
+      },
+      initNotice: function(msgs) {
+        var msg, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = msgs.length; _i < _len; _i++) {
+          msg = msgs[_i];
+          _results.push(this.appMainFriends.find(['#manAppFriends', msg.from._id].join('')).addClass('notice'));
+        }
+        return _results;
       }
     };
     return exports = MainApp;

@@ -61,6 +61,19 @@
           }
         });
       },
+      initChatBoxMsg: function(msgs) {
+        var msg, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = msgs.length; _i < _len; _i++) {
+          msg = msgs[_i];
+          if (msg.type === 3) {
+            _results.push(this.addChatItem(msg.from, msg.content, msg.time, 1));
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
+      },
       addChatItem: function(from, msg, time, type) {
         var tmp;
         if (type === 1 && from._id !== this.faccount._id) {
@@ -70,6 +83,7 @@
         return this.chatContent.append(tmp.join(''));
       },
       show: function() {
+        this.socket.emit('read msg', this.faccount._id, this.myaccount._id);
         return this.all.show();
       },
       hide: function() {

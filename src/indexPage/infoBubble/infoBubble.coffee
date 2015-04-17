@@ -9,6 +9,7 @@ define (require)->
     this.cancelNotifyBtn = $('.infoBubbleContainer .cancelNotifyBtn')
     this.viewAllBtn = $('.infoBubbleContainer .viewAllBtn')
     this.infoFroms = {}
+    this.infos = []
     this.myid = null
     this.mynick = null
     this.socket = socket
@@ -42,6 +43,8 @@ define (require)->
       that.cancelNotifyBtn.click ()->
         that.clearNotice()
       that.viewAllBtn.click ()->
+        for info in that.infos
+          that.infoListContent.find('#'+info).click()
         that.clearNotice()
 
     clearNotice: ()->
@@ -50,6 +53,10 @@ define (require)->
       this.infoAllCount.html(0)
       this.infoListContent.html('')
       this.infoFroms = {}
+
+    initInfoList: (msgs)->
+      for msg in msgs
+        this.addInfoItem(msg.from, msg.content, msg.type)
 
     # type: 1-请求加好友，2-回应加好友，3-单聊
     addInfoItem: (from, msg, type)->
@@ -61,6 +68,7 @@ define (require)->
         info.remove()
       else
         this.infoFroms[from.id] = 1
+        this.infos.push from.id
 
       infoTmp = [
         '<li id="'
@@ -96,6 +104,7 @@ define (require)->
 
         that.infoAllCount.html(parseInt(that.infoAllCount.html()) - that.infoFroms[from.id])
         that.infoFroms[from.id] = 0
+        that.infos.splice that.infos.indexOf from.id, 1
         this.remove()
       this.infoListContent.prepend(info)
       

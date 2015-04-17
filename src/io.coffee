@@ -23,24 +23,32 @@ IO = (server)->
       if onlineUsers[data.to]
         onlineUsers[data.to].emit 'req ' + data.to, data.from
       else
-        console.log data.to, ' is not online'
-
+        db.addMsg {type: 1, from: data.from, to: data.to, content: '请求添加好友'}, (flag)->
+          console.log 'offline req add friend'
+ 
     socket.on 'rep add friend', (data)->
       if onlineUsers[data.to]
         onlineUsers[data.to].emit 'reply ' + data.to, data.from, data.reply
       else
-        console.log data.to, ' is not online'
+        reply = if data.reply then '已经添加你为好友' else '拒绝添加你为好友'
+        db.addMsg {type: 2, from: data.from, to: data.to, content: reply}, (flag)->
+          console.log 'offline rep add friend'
 
       if data.reply
         db.addFriend data.to, data.from.id, (flag)->
           if flag
             console.log ('successly add friend')
 
+    socket.on 'read msg', (fid, toid)->
+      db.delMsg fid, toid, (flag)->
+        console.log flag, ' read msg from ', fid
+
     socket.on 'single chat', (data)->
       if onlineUsers[data.to]
         onlineUsers[data.to].emit 'single chat '+data.to, data.from, data.msg, data.time
       else
-        console.log data.to, ' is not online'
+        db.addMsg {type: 3, from: data.from, to: data.to, content: data.msg, time: data.time}, (flag)->
+          console.log 'offline rep add friend'
       
     socket.on 'disconnect', ()->
       if client && client.id

@@ -99,7 +99,7 @@
                 return console.log(data.err);
               } else {
                 if (!data.result) {
-                  return that.socket.emit('req add friend', {
+                  that.socket.emit('req add friend', {
                     from: {
                       id: myid,
                       nick: that.myaccount.nick,
@@ -107,6 +107,7 @@
                     },
                     to: fid
                   });
+                  return alert('消息已发送');
                 } else {
                   return alert([that.myaccount.nick, '已经是你的好友了，不需添加好友关系'].join(''));
                 }

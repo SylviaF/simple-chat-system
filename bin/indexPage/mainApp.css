@@ -1,3 +1,12 @@
+.bigBg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .appMainContainer {
   display: none;
   position: absolute;
@@ -179,6 +188,9 @@
 .appMainContainer .appMainInnner .appContent .appBody .appBodyInner .appBodyMainPanel .appBodyMainInner .tabContentContainer .tabContentInner {
   height: 385px;
   overflow-y: overlay;
+}
+.appMainContainer .appMainInnner .appContent .appBody .appBodyInner .appBodyMainPanel .appBodyMainInner .tabContentContainer .tabContentInner .notice {
+  background: #FFB2B2;
 }
 .appMainContainer .appMainInnner .appContent .appBody .appBodyInner .appBodyMainPanel .appBodyMainInner .tabContentContainer .tabContentInner .friendLine {
   height: 40px;

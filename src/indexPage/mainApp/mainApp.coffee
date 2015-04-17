@@ -19,16 +19,33 @@ define ['searchPanel', 'infoBubble', 'chatBox'], (SearchPanel, InfoBubble, ChatB
       this.appMainNick.html(myaccount.nick)
       this.searchPanel.init(myaccount)
       this.infoBubble.init(myaccount)
+
+      # 在有离线消息时
+      that = this
+      $.ajax
+        type: 'POST'
+        data:
+          msgs: myaccount.msgs.join('&')
+        url: '/api/getMsgs'
+        dataType: 'json'
+        success: (data)->
+          if data.flag
+            that.infoBubble.initInfoList data.result
+            that.initNotice data.result
+            for friend in friends
+              that.chatBoxs[friend._id].initChatBoxMsg data.result
       # this.chatBox.init(myaccount)
       this.addEvent()
     addEvent: ()->
       that = this
-
       that.socket.on 'isOnline', (id, isOnline)->
         if isOnline
           that.appMainFriends.find('#'+id+'favatar').removeClass('gray')
         else
           that.appMainFriends.find('#'+id+'favatar').addClass('gray')
+
+      that.socket.on 'single chat '+that.myaccount._id, (from, msg, time)->
+          that.appMainFriends.find(['#mainAppFriends', from._id].join('')).addClass('notice')
 
       that.searchFriendBtn.click ()->
         that.searchPanel.show()
@@ -48,7 +65,9 @@ define ['searchPanel', 'infoBubble', 'chatBox'], (SearchPanel, InfoBubble, ChatB
       
     addFriendItem: (faccount, recentMsg)->
       array = [
-        '<div class="friendLine"><img id="'
+        '<div class="friendLine" id="mainAppFriends'
+        faccount._id
+        '"><img id="'
         [faccount._id, 'favatar'].join('')
         '" src="../images/defaultUserAvatar.png" class="favatar'
         if faccount.isOnline then '' else ' gray'
@@ -63,7 +82,12 @@ define ['searchPanel', 'infoBubble', 'chatBox'], (SearchPanel, InfoBubble, ChatB
       item = $ array.join('')
       that = this
       item.click ()->
+        item.removeClass 'notice'
         that.chatBoxs[faccount._id].show()
       this.appMainFriends.append(item)
 
+    initNotice: (msgs)->
+      for msg in msgs
+        this.appMainFriends.find(['#manAppFriends', msg.from._id].join('')).addClass('notice')
+  
   exports = MainApp

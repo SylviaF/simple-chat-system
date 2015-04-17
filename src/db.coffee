@@ -13,26 +13,27 @@ db = mongoose.connect 'mongodb://localhost/test', (err)->
 Schema = mongoose.Schema
 
 accountSchema = new Schema(
-  uid: {type: Schema.Types.ObjectId, index: true}
+  # uid: {type: Schema.Types.ObjectId, index: true}
   nick: {type: String, default: '匿名用户'}
   pw: {type: String}
   email: {type: String}
   isOnline: {type: Boolean, default: false}
   friends: {type: Array, default: []}
+  msgs: {type:Array, default: []}
 )
-
-singleChatSchema = new Schema(
-  scid: {type: Schema.Types.ObjectId}
-  fromid: {type: Number}
-  toid: {type: Number}
+msgSchema = new Schema(
+  # scid: {type: Schema.Types.ObjectId}
+  type: {type: Number}
+  from: {type: Object}
+  to: {type: Schema.Types.ObjectId}
   content: {type: String}
-  date: { type: Date, default: Date.now}
-  isRead: {type: Boolean, default: false}
+  time: { type: String, default: ''}
+  count: {type: Number, default: 1}
 )
 
 Account = db.model('Account', accountSchema)
 
-SingleChat = db.model('SingleChat', singleChatSchema)
+Msg = db.model('Msg', msgSchema)
 
 exports.checkEmailExist = (_email, callback)->
   Account.findOne {email: _email}, callback
@@ -53,12 +54,8 @@ exports.addAcounts = (_account, callback)->
 
 exports.setIsOnline = (_id, isOnline)->
   Account.findOneAndUpdate {_id: _id}, {isOnline: isOnline}, (err, result)->
-    console.log err, result
+    # console.log err, result
 
-# exports.getAccountsByEmails = (emails, callback)->
-#   tmp = '(' + emails.join('|') + ')'
-#   regExp = new RegExp(tmp)
-#   Account.find {email: regExp}, callback
 exports.getFriendsId = (myid, callback)->
   Account.findOne {_id: myid}, 'friends', callback
 exports.getFriends = (FIds, callback)->
@@ -73,4 +70,31 @@ exports.addFriend = (myid, fid, callback)->
           doc2.friends.push(myid)
           doc2.save()
           callback(true)
-    callback(false)       
+    callback(false)
+
+exports.addMsg = (msg, callback)->
+  instance = new Msg(msg)
+  instance.save (err, result)->
+    Account.findOne {_id: msg.to}, (err, doc)->
+      if !err 
+        doc.msgs.push(result._id)
+        doc.save()
+        callback(true)
+  callback(false)
+  instance
+exports.getMsgs = (msgIds, callback)->
+  Msg.find {_id: {$in: msgIds}}, callback
+exports.delMsg = (fid, toid, callback)->
+  Msg.find {'from._id': fid, to: toid}, (err, docs)->
+    if !err 
+      for doc1 in docs
+        doc1.count -= 1
+        Account.findOne {_id: toid}, (err, doc2)->
+          index = doc2.msgs.indexOf(doc1._id)
+          doc2.msgs.splice(index, 1)
+          doc2.save()
+          callback true
+        if doc1.count == 0
+          doc1.remove()
+        doc1.save()
+    callback false

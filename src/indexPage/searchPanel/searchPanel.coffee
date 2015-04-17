@@ -86,6 +86,7 @@ define (require)->
             else
               if !data.result
                 that.socket.emit 'req add friend', {from: {id: myid, nick: that.myaccount.nick, email: that.myaccount.email}, to: fid}
+                alert '消息已发送'
               else
                 alert [that.myaccount.nick, '已经是你的好友了，不需添加好友关系'].join('')
           error: (err)->

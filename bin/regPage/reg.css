@@ -1,3 +1,6 @@
+body {
+  background: #ffffff url(img/body.png) repeat-x 0 0;
+}
 .container .header {
   height: 94px;
   background: url(images/regHeader.png) no-repeat center top;

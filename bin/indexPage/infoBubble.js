@@ -9,6 +9,7 @@
       this.cancelNotifyBtn = $('.infoBubbleContainer .cancelNotifyBtn');
       this.viewAllBtn = $('.infoBubbleContainer .viewAllBtn');
       this.infoFroms = {};
+      this.infos = [];
       this.myid = null;
       this.mynick = null;
       this.socket = socket;
@@ -43,6 +44,12 @@
           return that.clearNotice();
         });
         return that.viewAllBtn.click(function() {
+          var info, _i, _len, _ref;
+          _ref = that.infos;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            info = _ref[_i];
+            that.infoListContent.find('#' + info).click();
+          }
           return that.clearNotice();
         });
       },
@@ -52,6 +59,15 @@
         this.infoAllCount.html(0);
         this.infoListContent.html('');
         return this.infoFroms = {};
+      },
+      initInfoList: function(msgs) {
+        var msg, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = msgs.length; _i < _len; _i++) {
+          msg = msgs[_i];
+          _results.push(this.addInfoItem(msg.from, msg.content, msg.type));
+        }
+        return _results;
       },
       addInfoItem: function(from, msg, type) {
         var info, infoTmp, j, that;
@@ -64,6 +80,7 @@
           info.remove();
         } else {
           this.infoFroms[from.id] = 1;
+          this.infos.push(from.id);
         }
         infoTmp = ['<li id="', from.id, '"><a><span class="hidden">', from.email, '</span><span class="nick">', from.nick, '：</span><span class="msg">', msg, '</span><span class="countContainer">(<span class="count">', this.infoFroms[from.id], '</span>)</span></a></li>'];
         info = $(infoTmp.join(''));
@@ -97,6 +114,7 @@
           }
           that.infoAllCount.html(parseInt(that.infoAllCount.html()) - that.infoFroms[from.id]);
           that.infoFroms[from.id] = 0;
+          that.infos.splice(that.infos.indexOf(from.id, 1));
           return this.remove();
         });
         this.infoListContent.prepend(info);
